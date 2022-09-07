@@ -1,5 +1,10 @@
 import { createGlobalStyle } from 'styled-components';
 
+import '@fontsource/raleway';
+import '@fontsource/roboto-condensed';
+import '@fontsource/roboto';
+import '@fontsource/source-sans-pro';
+
 export const GlobalStyle = createGlobalStyle`
     /* CSS RESET START */
 
