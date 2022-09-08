@@ -37,7 +37,6 @@ export const TabText = styled.p`
     props.theme.color.primary}; // TODO color is primary when active */
 
   text-transform: uppercase;
-  font-family: 'Raleway', sans-serif;
   font-size: 1em;
   font-weight: 400; // TODO 600 when active
 `;
@@ -73,7 +72,6 @@ export const CurrencyWrap = styled.div`
 
 export const CurrencySymbol = styled.p`
   margin: 0 10px;
-  font-family: 'Raleway', sans-serif;
   font-size: 1.125em;
   font-weight: 500;
 `;
