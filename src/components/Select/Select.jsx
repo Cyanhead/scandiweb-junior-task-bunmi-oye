@@ -16,19 +16,19 @@ class Select extends Component {
 
     this.state = {
       currentValue: '',
-      open: false,
+      isOpen: false,
     };
   }
 
-  handleOpen = () => {
+  toggleDropdown = () => {
     this.setState({
-      open: true,
+      isOpen: !this.state.isOpen,
     });
   };
 
   handleClose = () => {
     this.setState({
-      open: false,
+      isOpen: false,
     });
   };
 
@@ -44,24 +44,30 @@ class Select extends Component {
   };
 
   render() {
-    const { values } = this.props;
-    const { currentValue, open } = this.state;
+    const { values, anchor, noArrow, selectCase, optionCase } = this.props;
+    const { currentValue, isOpen } = this.state;
 
     return (
       <CloseModalOnClickOutside trigger={this.handleClose}>
-        <SelectWrap>
-          <SelectButton onClick={this.handleOpen}>
+        <SelectWrap anchor={anchor}>
+          <SelectButton onClick={this.toggleDropdown} selectCase={selectCase}>
             {currentValue !== '' ? currentValue : values[0].displayValue}
-            <ChevronDown src={arrow} alt="" isVisible={open} />
+            {noArrow ? (
+              ''
+            ) : (
+              <ChevronDown src={arrow} alt="" isVisible={isOpen} />
+            )}
           </SelectButton>
-          <DropdownMenu isVisible={open}>
+          <DropdownMenu isVisible={isOpen}>
             {values.map((value, index) => (
               <DropdownItem
                 onClick={() => this.handleChange(value.displayValue)}
                 active={value === currentValue}
                 key={index}
+                optionCase={optionCase}
               >
-                {value.displayValue} &nbsp; <p>{value.selectValue}</p>
+                {value.displayValue}
+                {value.selectValue && <p>&nbsp;{value.selectValue}</p>}
               </DropdownItem>
             ))}
           </DropdownMenu>

@@ -3,6 +3,8 @@ import styled from 'styled-components';
 const hoverGrey = props => props.theme.color.hoverGrey;
 
 export const SelectWrap = styled.div`
+  position: ${({ anchor }) => (anchor ? 'initial' : 'relative')};
+  /* position: initial; */
   margin: 0;
 `;
 
@@ -20,6 +22,8 @@ export const SelectButton = styled.button`
   font-family: 'Raleway', sans-serif;
   font-size: 1.125em;
   font-weight: 500;
+
+  text-transform: ${props => props.selectCase || 'capitalize'};
 
   cursor: pointer;
   transition: 0.3s ease;
@@ -39,7 +43,7 @@ export const DropdownMenu = styled.div`
 
   width: 100%;
 
-  box-shadow: 0 0 30px 1px rgba(0, 0, 0, 0.1);
+  box-shadow: ${props => props.theme.boxShadow};
 `;
 
 export const DropdownItem = styled.div`
@@ -49,6 +53,8 @@ export const DropdownItem = styled.div`
   background-color: ${props => props.theme.color.white};
 
   padding: 20px 36px;
+
+  text-transform: ${props => props.optionCase || 'capitalize'};
 
   cursor: pointer;
 
