@@ -37,6 +37,7 @@ export const DropdownMenu = styled.div`
   position: absolute;
   top: 65px;
   right: 0;
+  z-index: 2;
 
   display: ${({ isVisible }) => (isVisible ? 'flex' : 'none')};
   flex-direction: column;
