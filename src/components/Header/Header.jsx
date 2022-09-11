@@ -23,7 +23,7 @@ class Header extends Component {
   render() {
     const Tab = ({ name }) => {
       return (
-        <TabWrap onMouseEnter={() => console.log('ok')}>
+        <TabWrap>
           <TabText>{name}</TabText>
         </TabWrap>
       );
@@ -58,7 +58,7 @@ class Header extends Component {
             </Link>
           </Middle>
           <Right>
-            <Select values={currencies} />
+            <Select values={currencies} anchor />
             <CartWrap>
               <CartIcon src={cart} alt="" />
               <CartBadge>
