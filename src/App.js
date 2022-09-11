@@ -4,6 +4,7 @@ import { GlobalStyle } from './styles/Global.style';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import Header from './components/Header';
+import ListingPage from './pages/ListingPage/ListingPage';
 
 class App extends Component {
   render() {
@@ -15,7 +16,7 @@ class App extends Component {
           <Router>
             <Header />
             <Routes>
-              <Route path="/" element={<div>PLP</div>} />
+              <Route path="/" element={<ListingPage />} />
               <Route path="/product" element={<div>PDP</div>} />
               <Route path="/cart" element={<div>Cart</div>} />
             </Routes>
