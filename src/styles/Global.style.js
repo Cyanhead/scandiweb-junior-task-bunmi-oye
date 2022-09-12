@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
 import '@fontsource/raleway';
+import '@fontsource/raleway/500.css';
+import '@fontsource/raleway/300.css';
+
 import '@fontsource/roboto-condensed';
 import '@fontsource/roboto';
 import '@fontsource/source-sans-pro';
@@ -70,4 +73,10 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     /* CSS RESET END */
+
+    body {
+        background-color:  ${props => props.theme.color.white};
+        color: ${props => props.theme.color.black};
+        font-family: 'Raleway', sans-serif;
+    }
 `;
