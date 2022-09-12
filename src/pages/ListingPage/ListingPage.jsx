@@ -45,7 +45,9 @@ class ListingPage extends Component {
                 const categories = data.categories.map(category => {
                   return { displayValue: category.name };
                 });
-                return <Select values={categories} noArrow />;
+                return (
+                  <Select values={categories} arrowW="18px" arrowML="20px" />
+                );
               }}
             </Query>
           </Heading>

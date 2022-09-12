@@ -48,16 +48,22 @@ class Select extends Component {
     const { currentValue, isOpen } = this.state;
 
     return (
-      <CloseModalOnClickOutside trigger={this.handleClose}>
-        <SelectWrap anchor={anchor}>
-          <SelectButton onClick={this.toggleDropdown} selectCase={selectCase}>
-            {currentValue !== '' ? currentValue : values[0].displayValue}
-            {noArrow ? (
-              ''
-            ) : (
-              <ChevronDown src={arrow} alt="" isVisible={isOpen} />
-            )}
-          </SelectButton>
+      <SelectWrap anchor={anchor}>
+        <SelectButton onClick={this.toggleDropdown} selectCase={selectCase}>
+          {currentValue !== '' ? currentValue : values[0].displayValue}
+          {noArrow ? (
+            ''
+          ) : (
+            <ChevronDown
+              src={arrow}
+              alt=""
+              isVisible={isOpen}
+              arrowW={this.props.arrowW}
+              arrowML={this.props.arrowML}
+            />
+          )}
+        </SelectButton>
+        <CloseModalOnClickOutside trigger={this.handleClose}>
           <DropdownMenu isVisible={isOpen}>
             {values.map((value, index) => (
               <DropdownItem
@@ -71,8 +77,8 @@ class Select extends Component {
               </DropdownItem>
             ))}
           </DropdownMenu>
-        </SelectWrap>
-      </CloseModalOnClickOutside>
+        </CloseModalOnClickOutside>
+      </SelectWrap>
     );
   }
 }

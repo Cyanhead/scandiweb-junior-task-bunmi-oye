@@ -1,10 +1,7 @@
 import styled from 'styled-components';
 
-const hoverGrey = props => props.theme.color.hoverGrey;
-
 export const SelectWrap = styled.div`
   position: ${({ anchor }) => (anchor ? 'initial' : 'relative')};
-  /* position: initial; */
   margin: 0;
 `;
 
@@ -43,6 +40,8 @@ export const DropdownMenu = styled.div`
   flex-direction: column;
 
   width: 100%;
+  max-height: 60vh;
+  overflow-y: auto;
 
   box-shadow: ${props => props.theme.boxShadow};
 `;
@@ -62,7 +61,7 @@ export const DropdownItem = styled.div`
   &:hover,
   :focus,
   :focus:hover {
-    background-color: ${hoverGrey};
+    background-color: ${props => props.theme.color.hoverGrey};
   }
 
   p {
@@ -75,7 +74,10 @@ export const DropdownItem = styled.div`
 `;
 
 export const ChevronDown = styled.img`
-  margin-left: 10px;
+  margin-left: ${props => props.arrowML || '10px'};
+
+  width: ${props => props.arrowW || ''};
+  height: auto;
 
   transition: 150ms ease-in-out;
   transform: ${({ isVisible }) =>
