@@ -20,7 +20,7 @@ export class SizePicker extends Component {
   render() {
     const sizes = ['xs', 's', 'm', 'l'];
     return (
-      <Wrap>
+      <Wrap mar={this.props.mar}>
         <Text
           inheritFont={this.props.inheritFont}
           fontSize={this.props.fontSize}

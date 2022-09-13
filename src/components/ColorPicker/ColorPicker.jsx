@@ -20,7 +20,7 @@ export class ColorPicker extends Component {
   render() {
     const colors = ['#0ff', '#f0f', '#ff0', '#00f', '#0f0', '#f00'];
     return (
-      <Wrap>
+      <Wrap mar={this.props.mar}>
         <Text
           inheritFont={this.props.inheritFont}
           fontSize={this.props.fontSize}

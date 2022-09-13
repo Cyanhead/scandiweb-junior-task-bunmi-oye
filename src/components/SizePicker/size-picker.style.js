@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrap = styled.div`
-  margin: 24px 0;
+  margin: ${props => props.mar || '24px 0'};
 `;
 
 export const Text = styled.p`
