@@ -1,10 +1,15 @@
 import styled from 'styled-components';
 
 export const ButtonComponent = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   background-color: ${props => props.bg || props.theme.color.primary};
   color: ${props => props.fg || props.theme.color.white};
 
-  width: 100%;
+  width: ${props => props.width || ' 100%'};
+  height: ${props => props.height || ''};
   padding: ${props => props.pad || '14px'};
   border: ${props => props.border || 'none'};
   outline: none;

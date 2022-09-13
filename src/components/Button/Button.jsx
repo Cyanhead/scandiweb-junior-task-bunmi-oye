@@ -11,6 +11,8 @@ export class Button extends Component {
         pad={this.props.pad}
         border={this.props.border}
         fontSize={this.props.fontSize}
+        width={this.props.width}
+        height={this.props.height}
       >
         {this.props.children}
       </ButtonComponent>
