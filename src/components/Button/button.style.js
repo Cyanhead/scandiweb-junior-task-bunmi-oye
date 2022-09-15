@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const ButtonComponent = styled.button`
   display: flex;
@@ -25,4 +26,14 @@ export const ButtonComponent = styled.button`
     background-color: ${props =>
       props.bgHover || props.theme.color.primaryHover};
   }
+
+  &:active {
+    background-color: ${props =>
+      props.bgActive || props.theme.color.primaryActive};
+  }
+`;
+
+export const ButtonLink = styled(Link)`
+  color: inherit;
+  text-decoration: none;
 `;

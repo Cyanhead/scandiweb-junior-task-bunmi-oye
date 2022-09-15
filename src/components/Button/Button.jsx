@@ -21,3 +21,25 @@ export class Button extends Component {
     );
   }
 }
+
+export class LinkButton extends Component {
+  render() {
+    return (
+      <ButtonLink to={this.props.to || '/'}>
+        <ButtonComponent
+          bg={this.props.bg}
+          bgHover={this.props.bgHover}
+          bgActive={this.props.bgActive}
+          fg={this.props.fg}
+          pad={this.props.pad}
+          border={this.props.border}
+          fontSize={this.props.fontSize}
+          width={this.props.width}
+          height={this.props.height}
+        >
+          {this.props.children}
+        </ButtonComponent>
+      </ButtonLink>
+    );
+  }
+}
