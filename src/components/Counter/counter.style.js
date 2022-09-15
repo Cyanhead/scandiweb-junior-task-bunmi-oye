@@ -16,21 +16,20 @@ export const IconWrap = styled.div`
   transition: 150ms ease-in-out;
 
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: ${props => props.theme.color.blackAlphaHover};
   }
 
   &:active {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: ${props => props.theme.color.blackAlphaActive};
   }
 `;
 
 export const Icon = styled.img`
-  width: ${props => props.mar || '45px'};
-  height: ${props => props.mar || '45px'};
-  height: 45px;
+  width: ${props => props.width || '45px'};
+  height: ${props => props.height || '45px'};
 `;
 
 export const Text = styled.p`
-  font-size: ${props => props.mar || '1.5em'};
+  font-size: ${props => props.fontSize || '1.5em'};
   font-weight: 500;
 `;

@@ -28,13 +28,23 @@ class Counter extends Component {
 
   render() {
     return (
-      <Wrap>
+      <Wrap mar={this.props.mar}>
         <IconWrap onClick={this.increment}>
-          <Icon src={plus} alt="" />
+          <Icon
+            src={plus}
+            alt=""
+            width={this.props.width}
+            height={this.props.height}
+          />
         </IconWrap>
-        <Text>{this.state.count}</Text>
+        <Text fontSize={this.props.fontSize}>{this.state.count}</Text>
         <IconWrap onClick={this.decrement}>
-          <Icon src={minus} alt="" />
+          <Icon
+            src={minus}
+            alt=""
+            width={this.props.width}
+            height={this.props.height}
+          />
         </IconWrap>
       </Wrap>
     );
