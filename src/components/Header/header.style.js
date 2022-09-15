@@ -2,9 +2,15 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   width: 100%;
+  position: relative;
+  z-index: 3;
+
+  background-color: ${props => props.theme.color.white};
 `;
 
 export const Wrap = styled.div`
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,7 +26,7 @@ export const Left = styled.nav`
 `;
 
 export const TabWrap = styled.div`
-  padding: 28px 16px 32px 16px;
+  padding: 28px 16px 30px 16px;
   border-bottom: 2px solid transparent;
 
   cursor: pointer;
@@ -39,6 +45,7 @@ export const TabText = styled.p`
   text-transform: uppercase;
   font-size: 1em;
   font-weight: 400; // TODO 600 when active
+  line-height: 20px;
 `;
 
 export const Middle = styled.div``;
@@ -82,6 +89,12 @@ export const CurrencySelect = styled.select``;
 
 export const CurrencyOption = styled.option``;
 
+export const CartContainer = styled.div`
+  padding: 16px 8px;
+
+  cursor: pointer;
+`;
+
 export const CartWrap = styled.div`
   position: relative;
 `;
@@ -112,4 +125,20 @@ export const CartCounter = styled.p`
   font-family: 'Roboto', sans-serif;
   font-size: 14px;
   font-weight: 700;
+`;
+
+export const GreyBox = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+
+  background-color: rgba(57, 55, 72, 0.22);
+
+  transition: 200ms ease-in-out;
+  opacity: ${({ show }) => (show ? 1 : 0)};
+  pointer-events: ${({ show }) => (show ? 'initial' : 'none')};
+  /* z-index: ${({ show }) => (show ? 2 : -1)}; */
 `;
