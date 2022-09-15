@@ -2,10 +2,12 @@ export const theme = {
   color: {
     primary: '#5ECE7B',
     primaryHover: '#1DCF65',
-    // primaryHover: '#5AEE87', // TODO delete unsued values
-    // primaryHover: '#52D67A', // TODO delete unsued values
+    primaryActive: '#5AEE87',
 
     black: '#1D1F22',
+    blackAlphaHover: 'rgba(0, 0, 0, 0.1)',
+    blackAlphaActive: 'rgba(0, 0, 0, 0.2)',
+
     white: '#ffffff',
     hoverGrey: '#eeeeee',
     fadeGrey: '#8D8F9A',
