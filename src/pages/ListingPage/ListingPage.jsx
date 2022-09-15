@@ -46,7 +46,12 @@ class ListingPage extends Component {
                   return { displayValue: category.name };
                 });
                 return (
-                  <Select values={categories} arrowW="18px" arrowML="20px" />
+                  <Select
+                    values={categories}
+                    top="78px"
+                    arrowW="18px"
+                    arrowML="20px"
+                  />
                 );
               }}
             </Query>

@@ -12,7 +12,7 @@ export const SelectButton = styled.button`
   background-color: inherit;
   color: inherit;
 
-  padding: 16px;
+  padding: ${props => props.pad || '16px'};
   border: none;
   outline: none;
 
@@ -32,9 +32,9 @@ export const SelectButton = styled.button`
 
 export const DropdownMenu = styled.div`
   position: absolute;
-  top: 65px;
+  top: ${props => props.top || 0};
   right: 0;
-  z-index: 2;
+  z-index: 4;
 
   display: ${({ isVisible }) => (isVisible ? 'flex' : 'none')};
   flex-direction: column;

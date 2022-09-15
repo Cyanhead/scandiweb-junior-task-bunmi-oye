@@ -49,7 +49,11 @@ class Select extends Component {
 
     return (
       <SelectWrap anchor={anchor}>
-        <SelectButton onClick={this.toggleDropdown} selectCase={selectCase}>
+        <SelectButton
+          onClick={this.toggleDropdown}
+          selectCase={selectCase}
+          pad={this.props.pad}
+        >
           {currentValue !== '' ? currentValue : values[0].displayValue}
           {noArrow ? (
             ''
@@ -64,7 +68,7 @@ class Select extends Component {
           )}
         </SelectButton>
         <CloseModalOnClickOutside trigger={this.handleClose}>
-          <DropdownMenu isVisible={isOpen}>
+          <DropdownMenu isVisible={isOpen} top={this.props.top}>
             {values.map((value, index) => (
               <DropdownItem
                 onClick={() => this.handleChange(value.displayValue)}
