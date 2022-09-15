@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 
-import { ButtonComponent } from './button.style';
+import { ButtonComponent, ButtonLink } from './button.style';
 
 export class Button extends Component {
   render() {
     return (
       <ButtonComponent
         bg={this.props.bg}
+        bgHover={this.props.bgHover}
+        bgActive={this.props.bgActive}
         fg={this.props.fg}
         pad={this.props.pad}
         border={this.props.border}
@@ -19,5 +21,3 @@ export class Button extends Component {
     );
   }
 }
-
-export default Button;
