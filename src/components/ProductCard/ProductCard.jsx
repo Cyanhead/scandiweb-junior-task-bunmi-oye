@@ -21,6 +21,7 @@ class ProductCard extends Component {
 
     this.state = {
       show: false,
+      enlarge: false,
     };
   }
 
@@ -33,6 +34,18 @@ class ProductCard extends Component {
   hideCartBtn = () => {
     this.setState({
       show: false,
+    });
+  };
+
+  handleOpenAttrSelect = () => {
+    this.setState({
+      enlarge: true,
+    });
+  };
+
+  handleCloseAttrSelect = () => {
+    this.setState({
+      enlarge: false,
     });
   };
 
@@ -55,7 +68,12 @@ class ProductCard extends Component {
         <Top>
           <ImageWrap available={inStock}>
             <Image src={gallery[0] || fallback} alt="" />
-            <HoverCartButton visible={this.state.show} />
+            <HoverCartButton
+              visible={this.state.show}
+              enlarge={this.state.enlarge}
+              handleOpenAttrSelect={this.handleOpenAttrSelect}
+              handleCloseAttrSelect={this.handleCloseAttrSelect}
+            />
           </ImageWrap>
           <OutOfStock show={inStock}>out of stock</OutOfStock>
         </Top>
