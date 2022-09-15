@@ -28,7 +28,7 @@ import {
 import SizePicker from '../../components/SizePicker';
 import ColorPicker from '../../components/ColorPicker';
 import Counter from '../../components/Counter';
-import Button from '../../components/Button';
+import { Button } from '../../components/Button';
 
 import dummy from '../../assets/images/logo.svg';
 import dummy1 from '../../assets/images/empty_cart.svg';
