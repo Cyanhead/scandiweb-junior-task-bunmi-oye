@@ -18,13 +18,21 @@ import SizePicker from '../SizePicker';
 
 class HoverCartButton extends Component {
   render() {
-    const { visible, enlarge, handleOpenAttrSelect, handleCloseAttrSelect } =
-      this.props;
+    const {
+      visible,
+      enlarge,
+      handleOpenAttrSelect,
+      handleCloseAttrSelect,
+      enableCartBtnClick,
+      disableCartBtnClick,
+    } = this.props;
     return (
       <Wrap
         show={visible}
         enlarge={enlarge}
         onClick={enlarge ? () => {} : handleOpenAttrSelect}
+        onMouseEnter={enableCartBtnClick}
+        onMouseLeave={disableCartBtnClick}
       >
         {enlarge && (
           <AttrSelect enlarge={enlarge}>
