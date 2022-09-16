@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 
 import { Container, Wrap, Heading, Grid } from './listing-page.style';
-import ProductTile from '../../components/ProductCard/ProductCard';
 
 import { Query } from '@apollo/client/react/components';
 import { FETCH_CATEGORIES, FETCH_CATEGORY } from '../../graphql/queries';
 import Select from '../../components/Select';
+import ProductCard from '../../components/ProductCard';
 
 class Products extends Component {
   render() {
-    const { categoryName } = this.props;
     return (
-      <Query query={FETCH_CATEGORY} variables={{ categoryName: categoryName }}>
+      <Query
+        query={FETCH_CATEGORY}
+        variables={{ categoryName: this.props.categoryName }}
+      >
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>; // TODO beautify this
           if (error) return <p>Error :(</p>; // TODO beautify this
@@ -21,7 +23,7 @@ class Products extends Component {
             // ... query doesn't support pagination
             data.category.products
               .slice(0, 6)
-              .map(({ id, ...rest }) => <ProductTile key={id} data={rest} />)
+              .map(product => <ProductCard key={product.id} data={product} />)
           );
         }}
       </Query>
