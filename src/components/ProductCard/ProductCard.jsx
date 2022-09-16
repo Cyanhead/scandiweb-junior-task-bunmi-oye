@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import HoverCartButton from '../HoverCartButton';
 
 import {
+  Container,
   ProductLink,
   Wrap,
   Top,
@@ -67,37 +68,40 @@ class ProductCard extends Component {
     const { id, gallery, inStock, brand, name, prices } = this.props.data;
     const { show, enlarge, cartBtnover } = this.state;
 
+    console.log(this.props.data);
+
     return (
-      <ProductLink to={cartBtnover ? '' : `/product/${id}`}>
-        <Wrap
-          available={inStock}
-          onMouseEnter={this.showCartBtn}
-          onMouseLeave={this.hideCartBtn}
-        >
-          <Top>
-            <ImageWrap available={inStock}>
-              <Image src={gallery[0] || fallback} alt="" />
-              <HoverCartButton
-                visible={show}
-                enlarge={enlarge}
-                cartBtnover={cartBtnover}
-                handleOpenAttrSelect={this.handleOpenAttrSelect}
-                handleCloseAttrSelect={this.handleCloseAttrSelect}
-                enableCartBtnClick={this.enableCartBtnClick}
-                disableCartBtnClick={this.disableCartBtnClick}
-              />
-            </ImageWrap>
-            <OutOfStock show={inStock}>out of stock</OutOfStock>
-          </Top>
-          <Bottom available={inStock}>
-            <Title>
-              <ProductBrand>{brand}</ProductBrand>
-              <ProductName>{name}</ProductName>
-            </Title>
-            <Price>{prices[0].currency.symbol}50</Price>
-          </Bottom>
-        </Wrap>
-      </ProductLink>
+      <Container available={inStock}>
+        <ProductLink to={cartBtnover ? '' : `/product/${id}`}>
+          <Wrap onMouseEnter={this.showCartBtn} onMouseLeave={this.hideCartBtn}>
+            <Top>
+              <ImageWrap available={inStock}>
+                <Image src={gallery[0] || fallback} alt="" />
+                <HoverCartButton
+                  visible={show}
+                  enlarge={enlarge}
+                  cartBtnover={cartBtnover}
+                  handleOpenAttrSelect={this.handleOpenAttrSelect}
+                  handleCloseAttrSelect={this.handleCloseAttrSelect}
+                  enableCartBtnClick={this.enableCartBtnClick}
+                  disableCartBtnClick={this.disableCartBtnClick}
+                />
+              </ImageWrap>
+              <OutOfStock show={inStock}>out of stock</OutOfStock>
+            </Top>
+            <Bottom available={inStock}>
+              <Title>
+                <ProductBrand>{brand}</ProductBrand>
+                <ProductName>{name}</ProductName>
+              </Title>
+              <Price>
+                {prices[0].currency.symbol}
+                {prices[0].amount}
+              </Price>
+            </Bottom>
+          </Wrap>
+        </ProductLink>
+      </Container>
     );
   }
 }

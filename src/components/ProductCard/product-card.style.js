@@ -3,6 +3,11 @@ import { Link } from 'react-router-dom';
 
 const fadeGrey = props => props.theme.color.fadeGrey;
 
+export const Container = styled.div`
+  pointer-events: ${({ available }) => (available ? 'initial' : 'none')};
+  cursor: pointer;
+`;
+
 export const ProductLink = styled(Link)`
   text-decoration: none;
   color: inherit;
@@ -15,9 +20,6 @@ export const Wrap = styled.div`
   &:hover {
     box-shadow: ${props => props.theme.boxShadow};
   }
-
-  pointer-events: ${({ available }) => (available ? 'initial' : 'none')};
-  cursor: pointer;
 `;
 
 export const Top = styled.div`
