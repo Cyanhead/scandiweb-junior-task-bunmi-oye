@@ -10,7 +10,7 @@ export const Wrap = styled.div`
 
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px 24px 24px;
+  padding: 80px 24px;
 `;
 
 export const Heading = styled.h1`

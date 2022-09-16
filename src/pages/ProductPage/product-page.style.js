@@ -9,7 +9,7 @@ export const Wrap = styled.div`
 
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding: 80px 24px;
 `;
 
 export const Left = styled.div`
