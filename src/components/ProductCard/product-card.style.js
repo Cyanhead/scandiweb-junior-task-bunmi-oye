@@ -1,6 +1,12 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const fadeGrey = props => props.theme.color.fadeGrey;
+
+export const ProductLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
 
 export const Wrap = styled.div`
   padding: 15px;

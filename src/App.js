@@ -19,7 +19,7 @@ class App extends Component {
             <Header />
             <Routes>
               <Route path="/" element={<ListingPage />} />
-              <Route path="/product" element={<ProductPage />} />
+              <Route path="/product/:productId" element={<ProductPage />} />
               <Route path="/cart" element={<Cart />} />
             </Routes>
           </Router>
