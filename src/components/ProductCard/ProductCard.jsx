@@ -65,10 +65,9 @@ class ProductCard extends Component {
   };
 
   render() {
-    const { id, gallery, inStock, brand, name, prices } = this.props.data;
+    const { id, gallery, inStock, brand, name, prices, attributes } =
+      this.props.data;
     const { show, enlarge, cartBtnover } = this.state;
-
-    console.log(this.props.data);
 
     return (
       <Container available={inStock}>
@@ -85,6 +84,7 @@ class ProductCard extends Component {
                   handleCloseAttrSelect={this.handleCloseAttrSelect}
                   enableCartBtnClick={this.enableCartBtnClick}
                   disableCartBtnClick={this.disableCartBtnClick}
+                  attributes={attributes}
                 />
               </ImageWrap>
               <OutOfStock show={inStock}>out of stock</OutOfStock>

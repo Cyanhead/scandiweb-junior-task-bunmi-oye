@@ -43,7 +43,7 @@ export const Box = styled.div`
   align-items: center;
   justify-content: center;
 
-  background-color: ${props => props.bg || primary}; // FIXME change the black
+  background-color: ${props => props.bg || 'black'};
 
   width: ${props => props.boxWidth || '32px'};
   height: ${props => props.boxHeight || '32px'};

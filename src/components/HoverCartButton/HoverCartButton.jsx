@@ -63,8 +63,8 @@ class HoverCartButton extends Component {
                             fontCase="capitalize"
                             noSpan
                             boxFontSize="0.875em"
-                            boxWidth="28px"
-                            boxHeight="28px"
+                            boxWidth="32px"
+                            boxHeight="32px"
                             gap="8px"
                             mar="4px 0"
                           />
@@ -80,27 +80,14 @@ class HoverCartButton extends Component {
                       fontCase="capitalize"
                       noSpan
                       boxFontSize="0.875em"
-                      boxWidth="28px"
-                      boxHeight="28px"
+                      boxWidth="32px"
+                      boxHeight="32px"
                       gap="8px"
                       mar="4px 0"
                     />
                   ) : (
                     ''
                   )}
-                  {/* <ColorSelector
-                    values={[{ value: '#0ff' }, { value: '#f0f' }]}
-                    inheritFont
-                    fontSize="0.875em"
-                    fontWeight="400"
-                    fontCase="capitalize"
-                    noSpan
-                    boxFontSize="0.875em"
-                    boxWidth="28px"
-                    boxHeight="28px"
-                    gap="8px"
-                    mar="4px 0"
-                  /> */}
                 </Top>
                 <Button>add to cart</Button>
               </>
