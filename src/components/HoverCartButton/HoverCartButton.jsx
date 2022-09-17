@@ -13,8 +13,9 @@ import cart from '../../assets/images/empty_cart_white.svg';
 import arrow from '../../assets/images/arrow_black.svg';
 
 import { Button } from '../Button';
-import ColorPicker from '../ColorPicker';
-import SizePicker from '../SizePicker';
+import AttributeSelector from '../AttributeSelector';
+import ColorSelector from '../ColorSelector';
+import { handleAttributes } from '../../helpers/handleAttributes';
 
 class HoverCartButton extends Component {
   render() {
@@ -25,7 +26,12 @@ class HoverCartButton extends Component {
       handleCloseAttrSelect,
       enableCartBtnClick,
       disableCartBtnClick,
+      attributes,
     } = this.props;
+
+    const attrValues = handleAttributes(attributes);
+    const colorValues = handleAttributes(attributes, 'swatch');
+
     return (
       <Wrap
         show={visible}
@@ -41,11 +47,60 @@ class HoverCartButton extends Component {
                 <Top>
                   <IconWrap>
                     <ArrowWrap onClick={handleCloseAttrSelect}>
-                      <Icon src={arrow} alt="" />
+                      <Icon src={arrow} alt="" width="20px" height="20px" />
                     </ArrowWrap>
                   </IconWrap>
-                  <SizePicker mar="10px 0" />
-                  <ColorPicker mar="10px 0" />
+                  {attrValues.length
+                    ? attrValues.map(({ id, items, name }) => {
+                        return (
+                          <AttributeSelector
+                            key={id}
+                            values={items}
+                            text={name}
+                            inheritFont
+                            fontSize="0.875em"
+                            fontWeight="400"
+                            fontCase="capitalize"
+                            noSpan
+                            boxFontSize="0.875em"
+                            boxWidth="28px"
+                            boxHeight="28px"
+                            gap="8px"
+                            mar="4px 0"
+                          />
+                        );
+                      })
+                    : ''}
+                  {colorValues.length ? (
+                    <ColorSelector
+                      values={colorValues[0].items}
+                      inheritFont
+                      fontSize="0.875em"
+                      fontWeight="400"
+                      fontCase="capitalize"
+                      noSpan
+                      boxFontSize="0.875em"
+                      boxWidth="28px"
+                      boxHeight="28px"
+                      gap="8px"
+                      mar="4px 0"
+                    />
+                  ) : (
+                    ''
+                  )}
+                  {/* <ColorSelector
+                    values={[{ value: '#0ff' }, { value: '#f0f' }]}
+                    inheritFont
+                    fontSize="0.875em"
+                    fontWeight="400"
+                    fontCase="capitalize"
+                    noSpan
+                    boxFontSize="0.875em"
+                    boxWidth="28px"
+                    boxHeight="28px"
+                    gap="8px"
+                    mar="4px 0"
+                  /> */}
                 </Top>
                 <Button>add to cart</Button>
               </>

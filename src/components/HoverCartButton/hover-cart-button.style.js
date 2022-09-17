@@ -29,7 +29,6 @@ export const AttrSelect = styled.div`
 
   width: 100%;
   height: 100%;
-  padding: 16px;
 `;
 
 export const Top = styled.div``;
@@ -39,7 +38,7 @@ export const IconWrap = styled.div`
 `;
 
 export const ArrowWrap = styled.div`
-  padding: 12px;
+  padding: 8px;
 
   transition: 150ms ease-in-out;
 
@@ -49,6 +48,6 @@ export const ArrowWrap = styled.div`
 `;
 
 export const Icon = styled.img`
-  width: 24px;
-  height: 24px;
+  width: ${props => props.width || '24px'};
+  height: ${props => props.width || '24px'};
 `;
