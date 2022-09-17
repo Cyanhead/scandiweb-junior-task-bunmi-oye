@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 
-import { Wrap, Text, Picker, Box, Value } from './size-picker.style';
+import { Wrap, Text, Picker, Border, Box } from './color-selector.style';
 
-export class SizePicker extends Component {
+class ColorSelector extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedSize: 0,
+      selectedColor: 0,
     };
   }
 
-  selectSize = index => {
+  selectColor = index => {
     this.setState({
-      selectedSize: index,
+      selectedColor: index,
     });
   };
 
@@ -24,15 +24,13 @@ export class SizePicker extends Component {
       fontSize,
       fontWeight,
       fontCase,
-      text,
       noSpan,
+      borderSize,
       boxWidth,
       boxHeight,
       gap,
-      boxFontSize,
       values,
     } = this.props;
-
     return (
       <Wrap mar={mar}>
         <Text
@@ -41,22 +39,25 @@ export class SizePicker extends Component {
           fontWeight={fontWeight}
           fontCase={fontCase}
         >
-          {text || 'size'}:
+          color:
         </Text>
         <Picker noSpan={noSpan}>
           {values !== undefined &&
-            values.map((size, i) => {
+            values.map((color, i) => {
               return (
-                <Box
+                <Border
                   key={i}
-                  boxWidth={boxWidth}
-                  boxHeight={boxHeight}
-                  gap={gap}
-                  selected={i === this.state.selectedSize}
-                  onClick={() => this.selectSize(i)}
+                  selected={i === this.state.selectedColor}
+                  onClick={() => this.selectColor(i)}
+                  borderSize={borderSize}
                 >
-                  <Value boxFontSize={boxFontSize}>{size.value}</Value>
-                </Box>
+                  <Box
+                    boxWidth={boxWidth}
+                    boxHeight={boxHeight}
+                    gap={gap}
+                    bg={color.value}
+                  />
+                </Border>
               );
             })}
         </Picker>
@@ -65,4 +66,4 @@ export class SizePicker extends Component {
   }
 }
 
-export default SizePicker;
+export default ColorSelector;

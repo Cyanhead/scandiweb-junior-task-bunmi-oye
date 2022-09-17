@@ -16,8 +16,8 @@ import {
   ButtonGroup,
 } from './mini-cart.style';
 
-import SizePicker from '../../components/SizePicker';
-import ColorPicker from '../../components/ColorPicker';
+import AttributeSelector from '../../components/AttributeSelector';
+import ColorSelector from '../../components/ColorSelector';
 import Counter from '../../components/Counter';
 import { Button, LinkButton } from '../../components/Button';
 
@@ -49,7 +49,7 @@ class MiniCart extends Component {
                       <MiniCartP weight="300">brand</MiniCartP>
                       <MiniCartP weight="300">name</MiniCartP>
                       <MiniCartP weight="500">&#36;50</MiniCartP>
-                      <SizePicker
+                      <AttributeSelector
                         inheritFont
                         fontSize="0.875em"
                         fontWeight="400"
@@ -61,7 +61,7 @@ class MiniCart extends Component {
                         gap="8px"
                         mar="8px 0"
                       />
-                      <ColorPicker
+                      <ColorSelector
                         inheritFont
                         fontSize="0.875em"
                         fontWeight="400"

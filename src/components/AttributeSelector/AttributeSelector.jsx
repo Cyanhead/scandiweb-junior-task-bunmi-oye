@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
 
-import { Wrap, Text, Picker, Border, Box } from './color-picker.style';
+import { Wrap, Text, Picker, Box, Value } from './attribute-selector';
 
-export class ColorPicker extends Component {
+class AttributeSelector extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedColor: 0,
+      selectedSize: 0,
     };
   }
 
-  selectColor = index => {
+  selectSize = index => {
     this.setState({
-      selectedColor: index,
+      selectedSize: index,
     });
   };
 
@@ -24,13 +24,15 @@ export class ColorPicker extends Component {
       fontSize,
       fontWeight,
       fontCase,
+      text,
       noSpan,
-      borderSize,
       boxWidth,
       boxHeight,
       gap,
+      boxFontSize,
       values,
     } = this.props;
+
     return (
       <Wrap mar={mar}>
         <Text
@@ -39,25 +41,22 @@ export class ColorPicker extends Component {
           fontWeight={fontWeight}
           fontCase={fontCase}
         >
-          color:
+          {text || 'size'}:
         </Text>
         <Picker noSpan={noSpan}>
           {values !== undefined &&
-            values.map((color, i) => {
+            values.map((size, i) => {
               return (
-                <Border
+                <Box
                   key={i}
-                  selected={i === this.state.selectedColor}
-                  onClick={() => this.selectColor(i)}
-                  borderSize={borderSize}
+                  boxWidth={boxWidth}
+                  boxHeight={boxHeight}
+                  gap={gap}
+                  selected={i === this.state.selectedSize}
+                  onClick={() => this.selectSize(i)}
                 >
-                  <Box
-                    boxWidth={boxWidth}
-                    boxHeight={boxHeight}
-                    gap={gap}
-                    bg={color.value}
-                  />
-                </Border>
+                  <Value boxFontSize={boxFontSize}>{size.value}</Value>
+                </Box>
               );
             })}
         </Picker>
@@ -66,4 +65,4 @@ export class ColorPicker extends Component {
   }
 }
 
-export default ColorPicker;
+export default AttributeSelector;
