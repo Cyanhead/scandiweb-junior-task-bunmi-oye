@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const primary = props => props.theme.color.primary;
+const fadeGrey = props => props.theme.color.fadeGrey;
 
 export const Wrap = styled.div`
   margin: ${props => props.mar || '24px 0'};
@@ -27,6 +28,7 @@ export const Border = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: ${({ selected }) => (selected ? 'white' : fadeGrey)};
 
   padding: 1px;
   border: ${props => props.borderSize || '2px'} solid

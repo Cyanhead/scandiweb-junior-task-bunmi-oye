@@ -7,7 +7,7 @@ export class SizePicker extends Component {
     super(props);
 
     this.state = {
-      selectedSize: 1,
+      selectedSize: 0,
     };
   }
 
@@ -18,32 +18,47 @@ export class SizePicker extends Component {
   };
 
   render() {
-    const sizes = ['xs', 's', 'm', 'l'];
+    const {
+      mar,
+      inheritFont,
+      fontSize,
+      fontWeight,
+      fontCase,
+      text,
+      noSpan,
+      boxWidth,
+      boxHeight,
+      gap,
+      boxFontSize,
+      values,
+    } = this.props;
+
     return (
-      <Wrap mar={this.props.mar}>
+      <Wrap mar={mar}>
         <Text
-          inheritFont={this.props.inheritFont}
-          fontSize={this.props.fontSize}
-          fontWeight={this.props.fontWeight}
-          fontCase={this.props.fontCase}
+          inheritFont={inheritFont}
+          fontSize={fontSize}
+          fontWeight={fontWeight}
+          fontCase={fontCase}
         >
-          size:
+          {text || 'size'}:
         </Text>
-        <Picker noSpan={this.props.noSpan}>
-          {sizes.map((size, i) => {
-            return (
-              <Box
-                key={i}
-                boxWidth={this.props.boxWidth}
-                boxHeight={this.props.boxHeight}
-                gap={this.props.gap}
-                selected={i === this.state.selectedSize}
-                onClick={() => this.selectSize(i)}
-              >
-                <Value boxFontSize={this.props.boxFontSize}>{size}</Value>
-              </Box>
-            );
-          })}
+        <Picker noSpan={noSpan}>
+          {values !== undefined &&
+            values.map((size, i) => {
+              return (
+                <Box
+                  key={i}
+                  boxWidth={boxWidth}
+                  boxHeight={boxHeight}
+                  gap={gap}
+                  selected={i === this.state.selectedSize}
+                  onClick={() => this.selectSize(i)}
+                >
+                  <Value boxFontSize={boxFontSize}>{size.value}</Value>
+                </Box>
+              );
+            })}
         </Picker>
       </Wrap>
     );
