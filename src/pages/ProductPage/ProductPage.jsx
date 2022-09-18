@@ -25,6 +25,8 @@ import withParams from '../../hocs';
 import { Query } from '@apollo/client/react/components';
 import { FETCH_PRODUCT } from '../../graphql/queries';
 import { handleAttributes } from '../../helpers/handleAttributes';
+import { connect } from 'react-redux';
+import { addProduct } from '../../redux';
 
 class ProductPage extends Component {
   constructor(props) {
@@ -63,6 +65,12 @@ class ProductPage extends Component {
                   prices,
                 },
               } = data;
+
+              // JSON parsed product data to be ...
+              // ... passed to cart state on add to cart
+              const jsonParsedProduct = JSON.parse(
+                JSON.stringify(data.product)
+              );
 
               // extracted attributes passed to selector components
               const attrValues = handleAttributes(attributes);
@@ -118,7 +126,12 @@ class ProductPage extends Component {
                         {prices[0].amount}
                       </PriceValue>
                     </Price>
-                    <Button pad="16px">add to cart</Button>
+                    <Button
+                      pad="16px"
+                      onClick={() => this.props.addProduct(jsonParsedProduct)}
+                    >
+                      add to cart
+                    </Button>
                     <Description>{description}</Description>
                   </Right>
                 </>
@@ -131,4 +144,10 @@ class ProductPage extends Component {
   }
 }
 
-export default withParams(ProductPage);
+const mapDispatchToProps = dispatch => {
+  return {
+    addProduct: product => dispatch(addProduct(product)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(withParams(ProductPage));
