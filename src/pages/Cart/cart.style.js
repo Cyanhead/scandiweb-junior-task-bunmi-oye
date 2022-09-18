@@ -16,7 +16,7 @@ export const Wrap = styled.div`
 export const Heading = styled.h1`
   margin-bottom: 56px;
 
-  font-weight: 700;
+  font-weight: ${props => props.fontWeight || 700};
   text-transform: uppercase;
 `;
 

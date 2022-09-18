@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import {
   Container,
@@ -25,50 +26,77 @@ import {
   TotalPrice,
 } from './cart.style';
 
-import SizePicker from '../../components/SizePicker';
-import ColorPicker from '../../components/ColorPicker';
+import AttributeSelector from '../../components/AttributeSelector';
+import ColorSelector from '../../components/ColorSelector';
 import Counter from '../../components/Counter';
 import { Button } from '../../components/Button';
 
-import dummy from '../../assets/images/logo.svg';
-import dummy1 from '../../assets/images/empty_cart.svg';
 import arrow from '../../assets/images/arrow.svg';
+
+import { handleAttributes } from '../../helpers/handleAttributes';
 
 class Cart extends Component {
   render() {
-    const prodox = [dummy, dummy1, dummy, dummy1];
+    const { cartItems } = this.props;
     return (
       <Container>
         <Wrap>
           <Heading>Cart</Heading>
           <RowGroup>
-            {prodox.map((item, i) => {
-              return (
-                <ProductRow key={i}>
-                  <ProductLeft>
-                    <Brand>brand</Brand>
-                    <Name>name</Name>
-                    <Price>&#36;50</Price>
-                    <SizePicker noSpan gap="8px" mar="16px 0" />
-                    <ColorPicker noSpan gap="8px" mar="16px 0 0 0" />
-                  </ProductLeft>
-                  <ProductRight>
-                    <Counter />
-                    <ImageWrap>
-                      <Image src={item} alt="" />
-                      <Arrows>
-                        <ArrowWrap>
-                          <ArrowLeft src={arrow} alt="" />
-                        </ArrowWrap>
-                        <ArrowWrap>
-                          <ArrowRight src={arrow} alt="" />
-                        </ArrowWrap>
-                      </Arrows>
-                    </ImageWrap>
-                  </ProductRight>
-                </ProductRow>
-              );
-            })}
+            {cartItems.length === 0 && (
+              <Heading fontWeight="300">Your bag is empty ;(</Heading>
+            )}
+            {cartItems.map(
+              ({ id, brand, name, prices, gallery, quantity, attributes }) => {
+                const attrValues = handleAttributes(attributes);
+                const colorValues = handleAttributes(attributes, 'swatch');
+
+                return (
+                  <ProductRow key={id}>
+                    <ProductLeft>
+                      <Brand>{brand}</Brand>
+                      <Name>{name}</Name>
+                      <Price>
+                        {prices[0].currency.symbol}
+                        {prices[0].amount}
+                      </Price>
+                      {attrValues.length
+                        ? attrValues.map(({ id, items, name }) => {
+                            return (
+                              <AttributeSelector
+                                key={id}
+                                values={items}
+                                text={name}
+                                noSpan
+                                gap="12px"
+                              />
+                            );
+                          })
+                        : ''}
+                      {colorValues.length ? (
+                        <ColorSelector values={colorValues[0].items} noSpan />
+                      ) : (
+                        ''
+                      )}
+                    </ProductLeft>
+                    <ProductRight>
+                      <Counter id={id} quantity={quantity} />
+                      <ImageWrap>
+                        <Image src={gallery[0]} alt="" />
+                        <Arrows>
+                          <ArrowWrap>
+                            <ArrowLeft src={arrow} alt="" />
+                          </ArrowWrap>
+                          <ArrowWrap>
+                            <ArrowRight src={arrow} alt="" />
+                          </ArrowWrap>
+                        </Arrows>
+                      </ImageWrap>
+                    </ProductRight>
+                  </ProductRow>
+                );
+              }
+            )}
           </RowGroup>
           <TotalSection>
             <Tax>
@@ -93,4 +121,10 @@ class Cart extends Component {
   }
 }
 
-export default Cart;
+const mapStateToProps = state => {
+  return {
+    cartItems: state.cart.cartItems,
+  };
+};
+
+export default connect(mapStateToProps)(Cart);

@@ -4,51 +4,41 @@ import { Wrap, IconWrap, Icon, Text } from './counter.style';
 
 import plus from '../../assets/images/plus.svg';
 import minus from '../../assets/images/minus.svg';
+import { connect } from 'react-redux';
+import { changeQuantity } from '../../redux';
 
 class Counter extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      count: 1,
-    };
-  }
-
-  increment = () => {
-    this.setState({
-      count: this.state.count + 1,
-    });
-  };
-
-  decrement = () => {
-    this.setState({
-      count: this.state.count - 1,
-    });
-  };
-
   render() {
+    const {
+      mar,
+      width,
+      height,
+      fontSize,
+      id,
+      quantity,
+      increaseCount,
+      decreaseCount,
+    } = this.props;
+
     return (
-      <Wrap mar={this.props.mar}>
-        <IconWrap onClick={this.increment}>
-          <Icon
-            src={plus}
-            alt=""
-            width={this.props.width}
-            height={this.props.height}
-          />
+      <Wrap mar={mar}>
+        <IconWrap onClick={() => increaseCount(id)}>
+          <Icon src={plus} alt="" width={width} height={height} />
         </IconWrap>
-        <Text fontSize={this.props.fontSize}>{this.state.count}</Text>
-        <IconWrap onClick={this.decrement}>
-          <Icon
-            src={minus}
-            alt=""
-            width={this.props.width}
-            height={this.props.height}
-          />
+        <Text fontSize={fontSize}>{quantity}</Text>
+        <IconWrap onClick={() => decreaseCount(id)}>
+          <Icon src={minus} alt="" width={width} height={height} />
         </IconWrap>
       </Wrap>
     );
   }
 }
 
-export default Counter;
+const mapDispatchToProps = dispatch => {
+  return {
+    increaseCount: id => dispatch(changeQuantity(id, 'inc')),
+    decreaseCount: id => dispatch(changeQuantity(id, 'dec')),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Counter);
