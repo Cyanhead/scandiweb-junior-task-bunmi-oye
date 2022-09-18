@@ -17,6 +17,15 @@ export const FETCH_CATEGORY = gql`
         brand
         name
         inStock
+        attributes {
+          id
+          name
+          type
+          items {
+            displayValue
+            value
+          }
+        }
         prices {
           currency {
             symbol
@@ -33,6 +42,34 @@ export const FETCH_CATEGORIES = gql`
   query FetchCategories {
     categories {
       name
+    }
+  }
+`;
+
+// fetch data for a single product
+export const FETCH_PRODUCT = gql`
+  query FetchProduct($productId: String!) {
+    product(id: $productId) {
+      id
+      name
+      gallery
+      description
+      brand
+      attributes {
+        id
+        name
+        type
+        items {
+          displayValue
+          value
+        }
+      }
+      prices {
+        currency {
+          symbol
+        }
+        amount
+      }
     }
   }
 `;

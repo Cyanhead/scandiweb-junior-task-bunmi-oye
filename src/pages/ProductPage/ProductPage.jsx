@@ -18,24 +18,15 @@ import {
   Description,
 } from './product-page.style';
 
-import dummy from '../../assets/images/logo.svg';
-import dummy1 from '../../assets/images/empty_cart.svg';
-import SizePicker from '../../components/SizePicker';
-import ColorPicker from '../../components/ColorPicker';
+import AttributeSelector from '../../components/AttributeSelector';
+import ColorSelector from '../../components/ColorSelector';
 import { Button } from '../../components/Button';
+import withParams from '../../hocs';
+import { Query } from '@apollo/client/react/components';
+import { FETCH_PRODUCT } from '../../graphql/queries';
+import { handleAttributes } from '../../helpers/handleAttributes';
 
-const dummyImages = [
-  dummy,
-  dummy1,
-  dummy,
-  dummy1,
-  dummy,
-  dummy1,
-  dummy,
-  dummy1,
-];
-
-export class ProductPage extends Component {
+class ProductPage extends Component {
   constructor(props) {
     super(props);
 
@@ -55,49 +46,89 @@ export class ProductPage extends Component {
     return (
       <Container>
         <Wrap>
-          <Left>
-            <ImageColumn>
-              {
-                // TODO consider the max amount of product photos uploadable
-                dummyImages.slice(0, 4).map((image, i) => {
-                  return (
-                    <ImageWrap
-                      key={i}
-                      onMouseEnter={() => this.setPreviewImage(i)}
-                      active={i === previewImage ? 'active' : ''}
-                    >
-                      <Image src={image} alt="" />
-                    </ImageWrap>
-                  );
-                })
-              }
-            </ImageColumn>
-            <ImagePreviewWrap>
-              <ImagePreview
-                // src={currentProduct?.images[previewImage] || ''}
-                src={dummyImages[previewImage] || dummy}
-                alt=""
-              />
-            </ImagePreviewWrap>
-          </Left>
-          <Right>
-            <Title>
-              <Brand>Brand</Brand>
-              <Name>name</Name>
-            </Title>
-            <SizePicker />
-            <ColorPicker noSpan />
-            <Price>
-              <PriceText>price:</PriceText>
-              <PriceValue>&#36;50.00</PriceValue>
-            </Price>
-            <Button pad="16px">add to cart</Button>
-            <Description>product description</Description>
-          </Right>
+          <Query
+            query={FETCH_PRODUCT}
+            variables={{ productId: this.props.params.productId }}
+          >
+            {({ loading, error, data }) => {
+              if (loading) return <h1>Loading...</h1>; // TODO beautify this
+              if (error) return <h1>Error :(</h1>; // TODO beautify this
+              const {
+                product: {
+                  name,
+                  gallery,
+                  description,
+                  brand,
+                  attributes,
+                  prices,
+                },
+              } = data;
+
+              // extracted attributes passed to selector components
+              const attrValues = handleAttributes(attributes);
+              const colorValues = handleAttributes(attributes, 'swatch');
+
+              return (
+                <>
+                  <Left>
+                    <ImageColumn>
+                      {gallery.map((image, i) => {
+                        return (
+                          <ImageWrap
+                            key={i}
+                            onMouseEnter={() => this.setPreviewImage(i)}
+                            active={i === previewImage ? 'active' : ''}
+                          >
+                            <Image src={image} alt="" />
+                          </ImageWrap>
+                        );
+                      })}
+                    </ImageColumn>
+                    <ImagePreviewWrap>
+                      <ImagePreview src={gallery[previewImage]} alt="" />
+                    </ImagePreviewWrap>
+                  </Left>
+                  <Right>
+                    <Title>
+                      <Brand>{brand}</Brand>
+                      <Name>{name}</Name>
+                    </Title>
+                    {attrValues.length
+                      ? attrValues.map(({ id, items, name }) => {
+                          return (
+                            <AttributeSelector
+                              key={id}
+                              values={items}
+                              text={name}
+                              noSpan
+                              gap="12px"
+                            />
+                          );
+                        })
+                      : ''}
+                    {colorValues.length ? (
+                      <ColorSelector values={colorValues[0].items} noSpan />
+                    ) : (
+                      ''
+                    )}
+                    <Price>
+                      <PriceText>price:</PriceText>
+                      <PriceValue>
+                        {prices[0].currency.symbol}
+                        {prices[0].amount}
+                      </PriceValue>
+                    </Price>
+                    <Button pad="16px">add to cart</Button>
+                    <Description>{description}</Description>
+                  </Right>
+                </>
+              );
+            }}
+          </Query>
         </Wrap>
       </Container>
     );
   }
 }
 
-export default ProductPage;
+export default withParams(ProductPage);
