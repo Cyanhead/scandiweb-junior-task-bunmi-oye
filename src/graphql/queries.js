@@ -57,10 +57,8 @@ export const FETCH_PRODUCT = gql`
       brand
       attributes {
         id
-        name
         type
         items {
-          displayValue
           value
         }
       }
