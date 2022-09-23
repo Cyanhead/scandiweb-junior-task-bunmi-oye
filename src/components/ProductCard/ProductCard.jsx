@@ -16,6 +16,8 @@ import {
   Price,
 } from './product-card.style';
 import fallback from '../../assets/images/logo.svg';
+import { connect } from 'react-redux';
+import { addProduct } from '../../redux';
 
 class ProductCard extends Component {
   constructor(props) {
@@ -25,8 +27,69 @@ class ProductCard extends Component {
       show: false,
       enlarge: false,
       cartBtnover: false,
+      selectedAttributes: null,
     };
   }
+
+  componentDidUpdate = (prevProps, prevState) => {
+    // * if selected attribute state has not been updated ...
+    // * ... set the first indices of all attributes as default
+    if (prevState && prevState.selectedAttributes === null) {
+      const initialAttributes = this.props.product.attributes;
+
+      // convert array from read-only to mutable
+      const jsonParsedAttributeArray = JSON.parse(
+        JSON.stringify(initialAttributes)
+      );
+
+      const handleDefaultAttributes = attributesList => {
+        const newList = structuredClone(attributesList);
+        // map through the attributes
+        newList.forEach(attr => {
+          // add a "selected: false" key-value pair to all items
+          attr.items.map(item => (item.selected = false));
+          // set the "select" key of the item on the first ...
+          // ... index to true as a default value
+          attr.items[0].selected = true;
+        });
+
+        return newList;
+      };
+
+      const modifiedAttributes = handleDefaultAttributes(
+        jsonParsedAttributeArray
+      );
+
+      this.setState({
+        selectedAttributes: modifiedAttributes,
+      });
+    }
+  };
+
+  // * update the product attributes state
+  updateAttributes = attrObj => {
+    // clone the received attribute object
+    const attributesList = structuredClone(this.state.selectedAttributes);
+    // check if the attribute already exists in product attributes state
+    const foundAttrInList = attributesList.find(attr => attr.id === attrObj.id);
+
+    if (foundAttrInList) {
+      // if attribute exists, find the index and update ...
+      // ... default value to new value(from selector)
+      const foundAttrInListIndex = attributesList.findIndex(
+        attr => attr.id === attrObj.id
+      );
+      attributesList[foundAttrInListIndex].items = attrObj.items;
+    } else {
+      // if attribute doesn't exist, add a new entry
+      attributesList.push(attrObj);
+    }
+
+    // update the state with the new values
+    this.setState({
+      selectedAttributes: attributesList,
+    });
+  };
 
   showCartBtn = () => {
     this.setState({
@@ -65,9 +128,15 @@ class ProductCard extends Component {
   };
 
   render() {
-    const { id, gallery, inStock, brand, name, prices, attributes } =
-      this.props.data;
-    const { show, enlarge, cartBtnover } = this.state;
+    const { id, gallery, inStock, brand, name, prices } = this.props.product;
+    const { show, enlarge, cartBtnover, selectedAttributes } = this.state;
+
+    const handleSelectedAttributes = product => {
+      const jsonParsedProduct = JSON.parse(JSON.stringify(product));
+
+      jsonParsedProduct.attributes = this.state.selectedAttributes;
+      return jsonParsedProduct;
+    };
 
     return (
       <Container available={inStock}>
@@ -77,6 +146,7 @@ class ProductCard extends Component {
               <ImageWrap available={inStock}>
                 <Image src={gallery[0] || fallback} alt="" />
                 <HoverCartButton
+                  onClick={() => this.props.addProduct(this.props.product)}
                   visible={show}
                   enlarge={enlarge}
                   cartBtnover={cartBtnover}
@@ -84,7 +154,10 @@ class ProductCard extends Component {
                   handleCloseAttrSelect={this.handleCloseAttrSelect}
                   enableCartBtnClick={this.enableCartBtnClick}
                   disableCartBtnClick={this.disableCartBtnClick}
-                  attributes={attributes}
+                  attributes={selectedAttributes}
+                  product={this.props.product}
+                  handleSelectedAttributes={handleSelectedAttributes}
+                  updateAttributes={this.updateAttributes}
                 />
               </ImageWrap>
               <OutOfStock show={inStock}>out of stock</OutOfStock>
@@ -106,4 +179,11 @@ class ProductCard extends Component {
   }
 }
 
-export default ProductCard;
+const mapDispatchToProps = dispatch => {
+  return {
+    addProduct: product => dispatch(addProduct(product)),
+  };
+};
+
+// connect to redux
+export default connect(null, mapDispatchToProps)(ProductCard);
