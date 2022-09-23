@@ -1,32 +1,65 @@
-import {
-  PRODUCT_ADDED,
-  PRODUCT_QUANTITY_CHANGED,
-  PRODUCT_ATTRIBUTE_CHANGED,
-  PRODUCT_COLOR_CHANGED,
-} from './cartTypes';
+import { PRODUCT_ADDED, PRODUCT_QUANTITY_CHANGED } from './cartTypes';
 
+// * function to handle addition of products to cart
 const onAdd = (cartItems, product, quantity = 1) => {
-  // * checks if product already exists in the cart and returns product
-  const checkProductInCart = cartItems.find(item => product.id === item.id);
+  // function to create a unique ...
+  // ... product id using selected attributes
+  const createNewId = receivedProduct => {
+    const extracted = [];
+    extracted.push(receivedProduct.id);
+    receivedProduct.attributes.forEach(attr => {
+      const selectedValues = attr.items.filter(
+        value => value.selected === true
+      );
+      // remove whitespace from attr name
+      const trimmedAttrName = attr.id.replace(/\s+/g, '');
+      // join attr name and selected value into one string
+      const attrString = `${trimmedAttrName}=${selectedValues[0].value}`;
+      // push attr string to array for joining
+      extracted.push(attrString);
+    });
+    // joins the product id and selected attributes to form new id
+    const newId = extracted.join('+');
+    return newId;
+  };
 
-  // * if product exists, increase the quantity only, else add a new product entry
-  const updatedCartItems = [...cartItems];
-  if (checkProductInCart) {
-    const productIndex = updatedCartItems.findIndex(
-      cartProduct => cartProduct.id === product.id
-    );
-    updatedCartItems[productIndex].quantity += quantity;
-    //   setCartItems(updatedCartItems);
-    // return updatedCartItems
+  // adds new id to product
+  const productWithNewId = {
+    ...product,
+    newId: createNewId(product),
+  };
+
+  // make a copy of the cart from state
+  const cartClone = [...cartItems];
+
+  // check if id the product is already in cart
+  const foundProduct = cartClone.find(
+    item => productWithNewId.newId === item.newId
+  );
+
+  if (foundProduct === undefined) {
+    // if the product does not exist in cart ...
+    // ... add a quantity property set to 1
+
+    const newProduct = {
+      ...productWithNewId,
+      quantity: quantity,
+    };
+    // push product to cart as new entry
+    cartClone.push(newProduct);
   } else {
-    // if product is not in cart ...
-    //update the quantity
-    product.quantity = quantity;
+    // if the product already exists in cart ...
+    // ... find the index of the product in cart ...
+    const foundProductIndex = cartClone.findIndex(
+      item => productWithNewId.newId === item.newId
+    );
 
-    // add product to cart
-    updatedCartItems.push(product);
+    // ... increase quantity
+    cartClone[foundProductIndex].quantity += quantity;
   }
-  return updatedCartItems;
+
+  // returns the updated cart to pass to reducer
+  return cartClone;
 };
 
 const changeCartItemQuanitity = (cartItems, id, value) => {
@@ -34,7 +67,7 @@ const changeCartItemQuanitity = (cartItems, id, value) => {
   const newCartItems = [...cartItems];
 
   // finds the index of the item
-  const productIndex = newCartItems.findIndex(product => product.id === id);
+  const productIndex = newCartItems.findIndex(product => product.newId === id);
 
   if (value === 'inc') {
     // increses item quantity if 'inc'
@@ -51,94 +84,7 @@ const changeCartItemQuanitity = (cartItems, id, value) => {
 };
 
 const initialState = {
-  cartItems: [
-    {
-      id: 'apple-iphone-12-pro',
-      quantity: 2,
-      name: 'iPhone 12 Pro',
-      gallery: [
-        'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-family-hero?wid=940&amp;hei=1112&amp;fmt=jpeg&amp;qlt=80&amp;.v=1604021663000',
-      ],
-      description: 'This is iPhone 12. Nothing else to say.',
-      brand: 'Apple',
-      attributes: [
-        {
-          id: 'Capacity',
-          name: 'Capacity',
-          type: 'text',
-          items: [
-            {
-              displayValue: '512G',
-              value: '512G',
-            },
-            {
-              displayValue: '1T',
-              value: '1T',
-            },
-          ],
-        },
-        {
-          id: 'Color',
-          name: 'Color',
-          type: 'swatch',
-          items: [
-            {
-              displayValue: 'Green',
-              value: '#44FF03',
-            },
-            {
-              displayValue: 'Cyan',
-              value: '#03FFF7',
-            },
-            {
-              displayValue: 'Blue',
-              value: '#030BFF',
-            },
-            {
-              displayValue: 'Black',
-              value: '#000000',
-            },
-            {
-              displayValue: 'White',
-              value: '#FFFFFF',
-            },
-          ],
-        },
-      ],
-      prices: [
-        {
-          currency: {
-            symbol: '$',
-          },
-          amount: 1000.76,
-        },
-        {
-          currency: {
-            symbol: '£',
-          },
-          amount: 719.34,
-        },
-        {
-          currency: {
-            symbol: 'A$',
-          },
-          amount: 1290.99,
-        },
-        {
-          currency: {
-            symbol: '¥',
-          },
-          amount: 108074.6,
-        },
-        {
-          currency: {
-            symbol: '₽',
-          },
-          amount: 75680.48,
-        },
-      ],
-    },
-  ],
+  cartItems: [],
 };
 
 const cartReducer = (state = initialState, action) => {
