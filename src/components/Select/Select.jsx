@@ -36,6 +36,10 @@ class Select extends Component {
     this.setState({
       currentValue: newValue,
     });
+
+    if (this.props.updateParent) {
+      this.props.setCategory(newValue);
+    }
   };
 
   handleChange = value => {
