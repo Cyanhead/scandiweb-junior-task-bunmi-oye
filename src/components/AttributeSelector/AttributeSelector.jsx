@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 
-import { Wrap, Text, Picker, Box, Value } from './attribute-selector';
+import {
+  Wrap,
+  Text,
+  Picker,
+  Border,
+  Box,
+  ColorBox,
+  Value,
+} from './attribute-selector';
 
 class AttributeSelector extends Component {
   constructor(props) {
@@ -58,12 +66,16 @@ class AttributeSelector extends Component {
       noSpan,
       boxWidth,
       boxHeight,
+      colorBoxWidth,
+      colorBoxHeight,
       gap,
       boxFontSize,
+      borderSize,
     } = this.props;
 
     const options = this.state.initialAttribute.items;
     const name = this.state.initialAttribute.id;
+    const type = this.state.initialAttribute.type;
 
     return (
       <Wrap mar={mar}>
@@ -79,16 +91,32 @@ class AttributeSelector extends Component {
           {options !== undefined &&
             options.map((option, i) => {
               return (
-                <Box
-                  key={i}
-                  boxWidth={boxWidth}
-                  boxHeight={boxHeight}
-                  gap={gap}
-                  selected={option.selected === true}
-                  onClick={() => this.selectValue(i)}
-                >
-                  <Value boxFontSize={boxFontSize}>{option.value}</Value>
-                </Box>
+                <React.Fragment key={i}>
+                  {type === 'text' ? (
+                    <Box
+                      boxWidth={boxWidth}
+                      boxHeight={boxHeight}
+                      gap={gap}
+                      selected={option.selected === true}
+                      onClick={() => this.selectValue(i)}
+                    >
+                      <Value boxFontSize={boxFontSize}>{option.value}</Value>
+                    </Box>
+                  ) : (
+                    <Border
+                      selected={option.selected === true}
+                      onClick={() => this.selectValue(i)}
+                      borderSize={borderSize}
+                    >
+                      <ColorBox
+                        colorBoxWidth={colorBoxWidth || boxWidth}
+                        colorBoxHeight={colorBoxHeight || boxHeight}
+                        gap={gap}
+                        bg={option.value}
+                      />
+                    </Border>
+                  )}
+                </React.Fragment>
               );
             })}
         </Picker>

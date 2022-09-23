@@ -19,11 +19,9 @@ import {
 } from './product-page.style';
 
 import AttributeSelector from '../../components/AttributeSelector';
-import ColorSelector from '../../components/ColorSelector';
 import { Button } from '../../components/Button';
 import withParams from '../../hocs';
 import { FETCH_PRODUCT } from '../../graphql/queries';
-import { filterAttibuteListByType } from '../../helpers/filterAttibuteListByType';
 import { connect } from 'react-redux';
 import { addProduct } from '../../redux';
 import { graphql } from '@apollo/client/react/hoc';
@@ -35,7 +33,6 @@ class ProductPageComponent extends Component {
     this.state = {
       previewImage: 0,
       selectedAttributes: null,
-      selectedColor: '',
     };
   }
 
@@ -79,13 +76,14 @@ class ProductPageComponent extends Component {
     }
   };
 
-  // change the index of the large (preview) image
+  // * change the index of the large (preview) image
   setPreviewImage = index => {
     this.setState({
       previewImage: index,
     });
   };
 
+  // * update the product attributes state
   updateAttributes = attrObj => {
     // clone the received attribute object
     const attributesList = structuredClone(this.state.selectedAttributes);
@@ -110,12 +108,6 @@ class ProductPageComponent extends Component {
     });
   };
 
-  setSelectedColor = color => {
-    this.setState({
-      selectedColor: color,
-    });
-  };
-
   render() {
     const { loading, error, product } = this.props.data;
     if (loading) return <h1>Loading...</h1>; // TODO beautify this
@@ -127,10 +119,6 @@ class ProductPageComponent extends Component {
 
     const { name, gallery, description, brand, attributes, prices } =
       jsonParsedProduct;
-
-    // filter attribute types to pass to selectors
-    const attributesArray = filterAttibuteListByType(attributes);
-    const colorValues = filterAttibuteListByType(attributes, 'swatch');
 
     const { previewImage } = this.state;
 
@@ -166,8 +154,8 @@ class ProductPageComponent extends Component {
               <Brand>{brand}</Brand>
               <Name>{name}</Name>
             </Title>
-            {attributesArray.length
-              ? attributesArray.map(attribute => {
+            {attributes.length
+              ? attributes.map(attribute => {
                   return (
                     <AttributeSelector
                       key={attribute.id}
@@ -181,11 +169,6 @@ class ProductPageComponent extends Component {
                   );
                 })
               : ''}
-            {colorValues.length ? (
-              <ColorSelector values={colorValues[0].items} noSpan />
-            ) : (
-              ''
-            )}
 
             <Price>
               <PriceText>price:</PriceText>

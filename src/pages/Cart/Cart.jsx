@@ -27,13 +27,10 @@ import {
 } from './cart.style';
 
 import AttributeSelector from '../../components/AttributeSelector';
-import ColorSelector from '../../components/ColorSelector';
 import Counter from '../../components/Counter';
 import { Button } from '../../components/Button';
 
 import arrow from '../../assets/images/arrow.svg';
-
-import { filterAttibuteListByType } from '../../helpers/filterAttibuteListByType';
 
 class Cart extends Component {
   render() {
@@ -57,13 +54,6 @@ class Cart extends Component {
                 quantity,
                 attributes,
               }) => {
-                // filter attribute types to pass to selectors
-                const attributesArray = filterAttibuteListByType(attributes);
-                const colorValues = filterAttibuteListByType(
-                  attributes,
-                  'swatch'
-                );
-
                 return (
                   <ProductRow key={newId}>
                     <ProductLeft>
@@ -73,8 +63,8 @@ class Cart extends Component {
                         {prices[0].currency.symbol}
                         {prices[0].amount}
                       </Price>
-                      {attributesArray.length
-                        ? attributesArray.map(attribute => {
+                      {attributes.length
+                        ? attributes.map(attribute => {
                             return (
                               <AttributeSelector
                                 key={attribute.id}
@@ -87,11 +77,6 @@ class Cart extends Component {
                             );
                           })
                         : ''}
-                      {colorValues.length ? (
-                        <ColorSelector values={colorValues[0].items} noSpan />
-                      ) : (
-                        ''
-                      )}
                     </ProductLeft>
                     <ProductRight>
                       <Counter id={newId} quantity={quantity} />
