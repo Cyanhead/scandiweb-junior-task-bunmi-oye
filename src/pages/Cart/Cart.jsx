@@ -33,11 +33,12 @@ import { Button } from '../../components/Button';
 
 import arrow from '../../assets/images/arrow.svg';
 
-import { handleAttributes } from '../../helpers/handleAttributes';
+import { filterAttibuteListByType } from '../../helpers/filterAttibuteListByType';
 
 class Cart extends Component {
   render() {
     const { cartItems } = this.props;
+    console.log('cartItems', cartItems);
     return (
       <Container>
         <Wrap>
@@ -47,12 +48,24 @@ class Cart extends Component {
               <Heading fontWeight="300">Your bag is empty ;(</Heading>
             )}
             {cartItems.map(
-              ({ id, brand, name, prices, gallery, quantity, attributes }) => {
-                const attrValues = handleAttributes(attributes);
-                const colorValues = handleAttributes(attributes, 'swatch');
+              ({
+                newId,
+                brand,
+                name,
+                prices,
+                gallery,
+                quantity,
+                attributes,
+              }) => {
+                // filter attribute types to pass to selectors
+                const attributesArray = filterAttibuteListByType(attributes);
+                const colorValues = filterAttibuteListByType(
+                  attributes,
+                  'swatch'
+                );
 
                 return (
-                  <ProductRow key={id}>
+                  <ProductRow key={newId}>
                     <ProductLeft>
                       <Brand>{brand}</Brand>
                       <Name>{name}</Name>
@@ -60,15 +73,16 @@ class Cart extends Component {
                         {prices[0].currency.symbol}
                         {prices[0].amount}
                       </Price>
-                      {attrValues.length
-                        ? attrValues.map(({ id, items, name }) => {
+                      {attributesArray.length
+                        ? attributesArray.map(attribute => {
                             return (
                               <AttributeSelector
-                                key={id}
-                                values={items}
-                                text={name}
+                                key={attribute.id}
+                                setDefaults={false}
+                                attribute={attribute}
                                 noSpan
                                 gap="12px"
+                                allowUpdate={false}
                               />
                             );
                           })
@@ -80,7 +94,7 @@ class Cart extends Component {
                       )}
                     </ProductLeft>
                     <ProductRight>
-                      <Counter id={id} quantity={quantity} />
+                      <Counter id={newId} quantity={quantity} />
                       <ImageWrap>
                         <Image src={gallery[0]} alt="" />
                         <Arrows>
