@@ -30,7 +30,7 @@ const onAdd = (cartItems, product, quantity = 1) => {
   };
 
   // make a copy of the cart from state
-  const cartClone = [...cartItems];
+  const cartClone = structuredClone(cartItems);
 
   // check if id the product is already in cart
   const foundProduct = cartClone.find(
@@ -82,18 +82,10 @@ const changeCartItemQuanitity = (cartItems, id, value) => {
   return newCartItems;
 };
 
-const updateTotalCount = (cartItems, onNewAdd = false, product) => {
+const updateTotalCount = cartItems => {
   let count = 0;
 
   cartItems.map(item => (count += item.quantity));
-
-  const similarProd = cartItems.find(item => item.id === product.id);
-
-  if (onNewAdd && similarProd) {
-    return count;
-  } else if (onNewAdd) {
-    return count + 1;
-  }
 
   return count;
 };
@@ -110,9 +102,7 @@ const cartReducer = (state = initialState, action) => {
         ...state,
         cartItems: onAdd(state.cartItems, action.payload),
         totalProductCount: updateTotalCount(
-          state.cartItems,
-          true,
-          action.payload
+          onAdd(state.cartItems, action.payload)
         ),
       };
 
