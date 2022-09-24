@@ -64,10 +64,21 @@ export const FETCH_PRODUCT = gql`
       }
       prices {
         currency {
+          label
           symbol
         }
         amount
       }
+    }
+  }
+`;
+
+// query to fetch the all the currencies' names and symbols
+export const FETCH_CURRENCIES = gql`
+  query FetchCurrencies {
+    currencies {
+      label
+      symbol
     }
   }
 `;

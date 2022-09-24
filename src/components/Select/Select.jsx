@@ -32,23 +32,37 @@ class Select extends Component {
     });
   };
 
-  handleValueChange = newValue => {
+  handleValueChange = (displayValue, obj) => {
+    console.log('cy to pass 2', obj);
     this.setState({
-      currentValue: newValue,
+      currentValue: displayValue,
     });
 
-    if (this.props.updateParent) {
-      this.props.setCategory(newValue);
+    if (this.props.updateParent && this.props.passObj) {
+      this.props.setSelect(obj);
+    } else if (this.props.updateParent) {
+      this.props.setSelect(displayValue);
     }
   };
 
-  handleChange = value => {
-    this.handleValueChange(value);
+  handleChange = (displayValue, obj) => {
+    console.log('cy to pass 1', obj);
+
+    this.handleValueChange(displayValue, obj);
     this.handleClose();
   };
 
   render() {
-    const { values, anchor, noArrow, selectCase, optionCase } = this.props;
+    const {
+      values,
+      anchor,
+      noArrow,
+      selectCase,
+      optionCase,
+      pad,
+      width,
+      passObj,
+    } = this.props;
     const { currentValue, isOpen } = this.state;
 
     return (
@@ -56,7 +70,8 @@ class Select extends Component {
         <SelectButton
           onClick={this.toggleDropdown}
           selectCase={selectCase}
-          pad={this.props.pad}
+          pad={pad}
+          width={width}
         >
           {currentValue !== '' ? currentValue : values[0].displayValue}
           {noArrow ? (
@@ -75,13 +90,17 @@ class Select extends Component {
           <DropdownMenu isVisible={isOpen} top={this.props.top}>
             {values.map((value, index) => (
               <DropdownItem
-                onClick={() => this.handleChange(value.displayValue)}
+                onClick={
+                  passObj
+                    ? () => this.handleChange(value.displayValue, value)
+                    : () => this.handleChange(value.displayValue)
+                }
                 active={value === currentValue}
                 key={index}
                 optionCase={optionCase}
               >
-                {value.displayValue}
-                {value.selectValue && <p>&nbsp;{value.selectValue}</p>}
+                {value.displayValue}&nbsp;
+                {value.selectValue}
               </DropdownItem>
             ))}
           </DropdownMenu>

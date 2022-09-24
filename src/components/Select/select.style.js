@@ -8,10 +8,12 @@ export const SelectWrap = styled.div`
 export const SelectButton = styled.button`
   display: flex;
   align-items: baseline;
+  justify-content: flex-end;
 
   background-color: inherit;
   color: inherit;
 
+  width: ${props => props.width || ''};
   padding: ${props => props.pad || '16px'};
   border: none;
   outline: none;
