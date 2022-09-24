@@ -42,7 +42,7 @@ class MiniCart extends Component {
             </Heading>
             <RowGroup>
               {cartItems.length === 0 && (
-                <MiniCartP fontWeight="300">Your bag is empty ;(</MiniCartP>
+                <MiniCartP fontWeight="300">Your cart is empty ;(</MiniCartP>
               )}
               {cartItems.map(
                 ({

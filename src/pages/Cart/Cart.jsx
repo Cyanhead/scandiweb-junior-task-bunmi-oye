@@ -42,7 +42,7 @@ class Cart extends Component {
           <Heading>Cart</Heading>
           <RowGroup>
             {cartItems.length === 0 && (
-              <Heading fontWeight="300">Your bag is empty ;(</Heading>
+              <Heading fontWeight="300">Your cart is empty ;(</Heading>
             )}
             {cartItems.map(
               ({
@@ -107,8 +107,10 @@ class Cart extends Component {
             <Tax>
               <CartP>tax 21&#37;: </CartP>
               <Number>
-                {this.props.globalCurrency && this.props.globalCurrency.symbol}{' '}
-                calc
+                {this.props.globalCurrency && this.props.globalCurrency.symbol}
+                {(this.props.totalPrice * 0.21)
+                  .toFixed(2)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               </Number>
             </Tax>
             <Quantity>
@@ -118,7 +120,7 @@ class Cart extends Component {
             <TotalPrice>
               <CartP fontWeight="500">total: </CartP>
               <Number>
-                {this.props.globalCurrency && this.props.globalCurrency.symbol}{' '}
+                {this.props.globalCurrency && this.props.globalCurrency.symbol}
                 {this.props.totalPrice
                   .toFixed(2)
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
