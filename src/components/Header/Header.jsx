@@ -49,7 +49,6 @@ class WrappedSelect extends Component {
   };
 
   setCurrency = currency => {
-    console.log('crnsy received', currency);
     // transform the currency obj to better syntax
     const newObj = {
       label: currency.selectValue,
@@ -128,21 +127,6 @@ class Header extends Component {
         </TabWrap>
       );
     };
-
-    let currencies = [
-      {
-        selectValue: 'usd',
-        displayValue: <p>&#36;</p>,
-      },
-      {
-        selectValue: 'eur',
-        displayValue: <p>&#8364;</p>,
-      },
-      {
-        selectValue: 'jpy',
-        displayValue: <p>&#165;</p>,
-      },
-    ];
 
     const { showCart } = this.state;
 

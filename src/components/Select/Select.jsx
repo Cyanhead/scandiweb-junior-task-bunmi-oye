@@ -33,7 +33,6 @@ class Select extends Component {
   };
 
   handleValueChange = (displayValue, obj) => {
-    console.log('cy to pass 2', obj);
     this.setState({
       currentValue: displayValue,
     });
@@ -46,8 +45,6 @@ class Select extends Component {
   };
 
   handleChange = (displayValue, obj) => {
-    console.log('cy to pass 1', obj);
-
     this.handleValueChange(displayValue, obj);
     this.handleClose();
   };
