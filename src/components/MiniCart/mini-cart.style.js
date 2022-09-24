@@ -78,5 +78,5 @@ export const ButtonGroup = styled.div`
   display: flex;
   justify-content: space-between;
 
-  width: 326px;
+  width: 292px;
 `;
