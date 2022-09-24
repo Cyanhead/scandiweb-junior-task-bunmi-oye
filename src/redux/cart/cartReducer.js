@@ -1,3 +1,4 @@
+import { CURRENCY_CHANGED } from '../currency/currencyTypes';
 import { PRODUCT_ADDED, PRODUCT_QUANTITY_CHANGED } from './cartTypes';
 
 // * function to handle addition of products to cart
@@ -83,16 +84,37 @@ const changeCartItemQuanitity = (cartItems, id, value) => {
 };
 
 const updateTotalCount = cartItems => {
+  // declare count
   let count = 0;
 
+  // loop through cart items and increase count
   cartItems.map(item => (count += item.quantity));
 
   return count;
 };
 
+const sumTotalPrice = (cartItems, currency) => {
+  // declare price
+  let price = 0;
+
+  // loops through al cart items
+  cartItems.map(
+    item =>
+      (price +=
+        // finds the amount with the currenct state currency, ...
+        // ... multiply it by quantity and assigns to price
+        item.prices.find(price => price.currency.label === currency.label)
+          .amount * item.quantity)
+  );
+
+  return price;
+};
+
 const initialState = {
   cartItems: [],
   totalProductCount: 0,
+  totalPrice: 0,
+  evaluationCurrency: '',
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -103,6 +125,10 @@ const cartReducer = (state = initialState, action) => {
         cartItems: onAdd(state.cartItems, action.payload),
         totalProductCount: updateTotalCount(
           onAdd(state.cartItems, action.payload)
+        ),
+        totalPrice: sumTotalPrice(
+          onAdd(state.cartItems, action.payload),
+          state.evaluationCurrency
         ),
       };
 
@@ -115,6 +141,14 @@ const cartReducer = (state = initialState, action) => {
           action.payload.value
         ),
         totalProductCount: updateTotalCount(state.cartItems),
+        totalPrice: sumTotalPrice(state.cartItems, state.evaluationCurrency),
+      };
+
+    case CURRENCY_CHANGED:
+      return {
+        ...state,
+        evaluationCurrency: action.payload,
+        totalPrice: sumTotalPrice(state.cartItems, action.payload),
       };
 
     default:

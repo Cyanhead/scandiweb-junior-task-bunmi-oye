@@ -118,7 +118,9 @@ class MiniCart extends Component {
                 <MiniCartP weight="700">
                   {this.props.globalCurrency &&
                     this.props.globalCurrency.symbol}
-                  50
+                  {this.props.totalPrice
+                    .toFixed(2)
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </MiniCartP>
               </TotalPrice>
               <ButtonGroup>
@@ -152,6 +154,7 @@ const mapStateToProps = state => {
   return {
     cartItems: state.cart.cartItems,
     globalCurrency: state.currency.globalCurrency,
+    totalPrice: state.cart.totalPrice,
   };
 };
 

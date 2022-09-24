@@ -119,7 +119,9 @@ class Cart extends Component {
               <CartP fontWeight="500">total: </CartP>
               <Number>
                 {this.props.globalCurrency && this.props.globalCurrency.symbol}{' '}
-                50
+                {this.props.totalPrice
+                  .toFixed(2)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               </Number>
             </TotalPrice>
             <Button width="280px" height="44px">
@@ -137,6 +139,7 @@ const mapStateToProps = state => {
     cartItems: state.cart.cartItems,
     totalCount: state.cart.totalProductCount,
     globalCurrency: state.currency.globalCurrency,
+    totalPrice: state.cart.totalPrice,
   };
 };
 
