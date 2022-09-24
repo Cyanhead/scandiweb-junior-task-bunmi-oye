@@ -173,8 +173,12 @@ class ProductPageComponent extends Component {
             <Price>
               <PriceText>price:</PriceText>
               <PriceValue>
-                {prices[0].currency.symbol}
-                {prices[0].amount}
+                {this.props.globalCurrency && this.props.globalCurrency.symbol}
+                {this.props.globalCurrency.label !== undefined &&
+                  prices.find(
+                    price =>
+                      price.currency.label === this.props.globalCurrency.label
+                  ).amount}
               </PriceValue>
             </Price>
             <Button
@@ -195,6 +199,12 @@ class ProductPageComponent extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    globalCurrency: state.currency.globalCurrency,
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     addProduct: product => dispatch(addProduct(product)),
@@ -203,7 +213,7 @@ const mapDispatchToProps = dispatch => {
 
 // connect to redux
 const withProductPageComponent = connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withParams(ProductPageComponent));
 

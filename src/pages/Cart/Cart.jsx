@@ -35,7 +35,7 @@ import arrow from '../../assets/images/arrow.svg';
 class Cart extends Component {
   render() {
     const { cartItems } = this.props;
-    console.log('cartItems', cartItems);
+
     return (
       <Container>
         <Wrap>
@@ -60,8 +60,14 @@ class Cart extends Component {
                       <Brand>{brand}</Brand>
                       <Name>{name}</Name>
                       <Price>
-                        {prices[0].currency.symbol}
-                        {prices[0].amount}
+                        {this.props.globalCurrency &&
+                          this.props.globalCurrency.symbol}
+                        {this.props.globalCurrency !== undefined &&
+                          prices.find(
+                            price =>
+                              price.currency.label ===
+                              this.props.globalCurrency.label
+                          ).amount}
                       </Price>
                       {attributes.length
                         ? attributes.map(attribute => {
@@ -100,7 +106,10 @@ class Cart extends Component {
           <TotalSection>
             <Tax>
               <CartP>Tax 21&#37;:</CartP>
-              <Number> &#36;calc</Number>
+              <Number>
+                {this.props.globalCurrency && this.props.globalCurrency.symbol}{' '}
+                calc
+              </Number>
             </Tax>
             <Quantity>
               <CartP>qunatity:</CartP>
@@ -108,7 +117,10 @@ class Cart extends Component {
             </Quantity>
             <TotalPrice>
               <CartP>total:</CartP>
-              <Number>50</Number>
+              <Number>
+                {this.props.globalCurrency && this.props.globalCurrency.symbol}{' '}
+                50
+              </Number>
             </TotalPrice>
             <Button width="280px" height="44px">
               order
@@ -123,6 +135,7 @@ class Cart extends Component {
 const mapStateToProps = state => {
   return {
     cartItems: state.cart.cartItems,
+    globalCurrency: state.currency.globalCurrency,
   };
 };
 

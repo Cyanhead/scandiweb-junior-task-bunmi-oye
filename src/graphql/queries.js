@@ -28,6 +28,7 @@ export const FETCH_CATEGORY = gql`
         }
         prices {
           currency {
+            label
             symbol
           }
           amount

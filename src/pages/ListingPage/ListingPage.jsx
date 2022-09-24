@@ -21,7 +21,7 @@ class WrappedSelect extends Component {
     return (
       <Select
         values={categoriesList}
-        setCategory={this.props.setCategory}
+        setSelect={this.props.setCategory}
         top="78px"
         arrowW="18px"
         arrowML="20px"

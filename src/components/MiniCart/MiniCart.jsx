@@ -26,6 +26,7 @@ import CloseModalOnClickOutside from '../CloseModalOnClickOutside';
 class MiniCart extends Component {
   render() {
     const { cartItems } = this.props;
+
     return (
       <Container show={this.props.showCart}>
         <CloseModalOnClickOutside
@@ -59,8 +60,14 @@ class MiniCart extends Component {
                         <MiniCartP weight="300">{brand}</MiniCartP>
                         <MiniCartP weight="300">{name}</MiniCartP>
                         <MiniCartP weight="500">
-                          {prices[0].currency.symbol}
-                          {prices[0].amount}
+                          {this.props.globalCurrency &&
+                            this.props.globalCurrency.symbol}
+                          {this.props.globalCurrency.label !== undefined &&
+                            prices.find(
+                              price =>
+                                price.currency.label ===
+                                this.props.globalCurrency.label
+                            ).amount}
                         </MiniCartP>
                         {attributes.length
                           ? attributes.map(attribute => {
@@ -108,7 +115,11 @@ class MiniCart extends Component {
             <TotalSection>
               <TotalPrice>
                 <MiniCartP weight="700">Total</MiniCartP>
-                <MiniCartP weight="700">&#36;50</MiniCartP>
+                <MiniCartP weight="700">
+                  {this.props.globalCurrency &&
+                    this.props.globalCurrency.symbol}
+                  50
+                </MiniCartP>
               </TotalPrice>
               <ButtonGroup>
                 <LinkButton
@@ -140,6 +151,7 @@ class MiniCart extends Component {
 const mapStateToProps = state => {
   return {
     cartItems: state.cart.cartItems,
+    globalCurrency: state.currency.globalCurrency,
   };
 };
 

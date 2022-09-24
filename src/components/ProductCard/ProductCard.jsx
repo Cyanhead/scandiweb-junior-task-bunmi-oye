@@ -168,8 +168,12 @@ class ProductCard extends Component {
                 <ProductName>{name}</ProductName>
               </Title>
               <Price>
-                {prices[0].currency.symbol}
-                {prices[0].amount}
+                {this.props.globalCurrency && this.props.globalCurrency.symbol}
+                {this.props.globalCurrency !== undefined &&
+                  prices.find(
+                    price =>
+                      price.currency.label === this.props.globalCurrency.label
+                  ).amount}
               </Price>
             </Bottom>
           </Wrap>
@@ -179,6 +183,12 @@ class ProductCard extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    globalCurrency: state.currency.globalCurrency,
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     addProduct: product => dispatch(addProduct(product)),
@@ -186,4 +196,4 @@ const mapDispatchToProps = dispatch => {
 };
 
 // connect to redux
-export default connect(null, mapDispatchToProps)(ProductCard);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);
