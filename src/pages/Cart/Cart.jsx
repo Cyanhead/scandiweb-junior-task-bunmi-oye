@@ -27,17 +27,15 @@ import {
 } from './cart.style';
 
 import AttributeSelector from '../../components/AttributeSelector';
-import ColorSelector from '../../components/ColorSelector';
 import Counter from '../../components/Counter';
 import { Button } from '../../components/Button';
 
 import arrow from '../../assets/images/arrow.svg';
 
-import { handleAttributes } from '../../helpers/handleAttributes';
-
 class Cart extends Component {
   render() {
     const { cartItems } = this.props;
+
     return (
       <Container>
         <Wrap>
@@ -47,40 +45,47 @@ class Cart extends Component {
               <Heading fontWeight="300">Your bag is empty ;(</Heading>
             )}
             {cartItems.map(
-              ({ id, brand, name, prices, gallery, quantity, attributes }) => {
-                const attrValues = handleAttributes(attributes);
-                const colorValues = handleAttributes(attributes, 'swatch');
-
+              ({
+                newId,
+                brand,
+                name,
+                prices,
+                gallery,
+                quantity,
+                attributes,
+              }) => {
                 return (
-                  <ProductRow key={id}>
+                  <ProductRow key={newId}>
                     <ProductLeft>
                       <Brand>{brand}</Brand>
                       <Name>{name}</Name>
                       <Price>
-                        {prices[0].currency.symbol}
-                        {prices[0].amount}
+                        {this.props.globalCurrency &&
+                          this.props.globalCurrency.symbol}
+                        {this.props.globalCurrency !== undefined &&
+                          prices.find(
+                            price =>
+                              price.currency.label ===
+                              this.props.globalCurrency.label
+                          ).amount}
                       </Price>
-                      {attrValues.length
-                        ? attrValues.map(({ id, items, name }) => {
+                      {attributes.length
+                        ? attributes.map(attribute => {
                             return (
                               <AttributeSelector
-                                key={id}
-                                values={items}
-                                text={name}
+                                key={attribute.id}
+                                setDefaults={false}
+                                attribute={attribute}
                                 noSpan
                                 gap="12px"
+                                allowUpdate={false}
                               />
                             );
                           })
                         : ''}
-                      {colorValues.length ? (
-                        <ColorSelector values={colorValues[0].items} noSpan />
-                      ) : (
-                        ''
-                      )}
                     </ProductLeft>
                     <ProductRight>
-                      <Counter id={id} quantity={quantity} />
+                      <Counter id={newId} quantity={quantity} />
                       <ImageWrap>
                         <Image src={gallery[0]} alt="" />
                         <Arrows>
@@ -100,16 +105,24 @@ class Cart extends Component {
           </RowGroup>
           <TotalSection>
             <Tax>
-              <CartP>Tax 21&#37;:</CartP>
-              <Number> &#36;calc</Number>
+              <CartP>tax 21&#37;: </CartP>
+              <Number>
+                {this.props.globalCurrency && this.props.globalCurrency.symbol}{' '}
+                calc
+              </Number>
             </Tax>
             <Quantity>
-              <CartP>qunatity:</CartP>
-              <Number>50</Number>
+              <CartP>qunatity: </CartP>
+              <Number>{this.props.totalCount}</Number>
             </Quantity>
             <TotalPrice>
-              <CartP>total:</CartP>
-              <Number>50</Number>
+              <CartP fontWeight="500">total: </CartP>
+              <Number>
+                {this.props.globalCurrency && this.props.globalCurrency.symbol}{' '}
+                {this.props.totalPrice
+                  .toFixed(2)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              </Number>
             </TotalPrice>
             <Button width="280px" height="44px">
               order
@@ -124,6 +137,9 @@ class Cart extends Component {
 const mapStateToProps = state => {
   return {
     cartItems: state.cart.cartItems,
+    totalCount: state.cart.totalProductCount,
+    globalCurrency: state.currency.globalCurrency,
+    totalPrice: state.cart.totalPrice,
   };
 };
 

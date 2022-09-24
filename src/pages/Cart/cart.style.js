@@ -61,7 +61,9 @@ export const Price = styled.div`
 
 export const CartP = styled.p`
   font-size: 1.5em;
-  font-weight: 400;
+  font-weight: ${props => props.fontWeight || 400};
+
+  text-transform: capitalize;
 `;
 
 export const Number = styled.p`
@@ -131,19 +133,28 @@ export const ArrowRight = styled.img`
 
 export const TotalSection = styled.div`
   line-height: 28px;
+
+  max-width: 280px;
+  width: 100%;
 `;
 
 export const Tax = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
   margin-bottom: 8px;
 `;
 
 export const Quantity = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
   margin-bottom: 8px;
 `;
 
 export const TotalPrice = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
   margin-bottom: 16px;
 `;

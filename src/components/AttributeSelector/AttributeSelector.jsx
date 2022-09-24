@@ -1,20 +1,59 @@
 import React, { Component } from 'react';
 
-import { Wrap, Text, Picker, Box, Value } from './attribute-selector';
+import {
+  Wrap,
+  Text,
+  Picker,
+  Border,
+  Box,
+  ColorBox,
+  Value,
+} from './attribute-selector';
 
 class AttributeSelector extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedSize: 0,
+      initialAttribute: this.props.attribute,
     };
   }
 
-  selectSize = index => {
+  componentDidMount() {
+    // * sets first index as default value
+    if (this.props.setDefaults) {
+      // create a new copy of attribute from state
+      const newAttribute = structuredClone(this.state.initialAttribute);
+      // add a "selected: false" key-value pair to all items
+      newAttribute.items.forEach(item => (item.selected = false));
+      // set the "select" key of the item on the first ...
+      // ... index to true as a default value
+      newAttribute.items[0].selected = true;
+      // update state
+      this.setState({
+        initialAttribute: newAttribute,
+      });
+    }
+  }
+
+  selectValue = index => {
+    // create a new copy of attribute from state
+    const newAttribute = structuredClone(this.state.initialAttribute);
+    // add a "selected: false" key-value pair to all items
+    newAttribute.items.forEach(item => (item.selected = false));
+    // set the "select" key of the item on the first ...
+    // ... index to true as a default value
+    newAttribute.items[index].selected = true;
+
+    // update state
     this.setState({
-      selectedSize: index,
+      initialAttribute: newAttribute,
     });
+
+    // update parent product state
+    if (this.props.allowUpdate) {
+      this.props.updateAttributes(newAttribute);
+    }
   };
 
   render() {
@@ -24,14 +63,19 @@ class AttributeSelector extends Component {
       fontSize,
       fontWeight,
       fontCase,
-      text,
       noSpan,
       boxWidth,
       boxHeight,
+      colorBoxWidth,
+      colorBoxHeight,
       gap,
       boxFontSize,
-      values,
+      borderSize,
     } = this.props;
+
+    const options = this.state.initialAttribute.items;
+    const name = this.state.initialAttribute.id;
+    const type = this.state.initialAttribute.type;
 
     return (
       <Wrap mar={mar}>
@@ -41,22 +85,38 @@ class AttributeSelector extends Component {
           fontWeight={fontWeight}
           fontCase={fontCase}
         >
-          {text || 'size'}:
+          {name || 'size'}:
         </Text>
         <Picker noSpan={noSpan}>
-          {values !== undefined &&
-            values.map((size, i) => {
+          {options !== undefined &&
+            options.map((option, i) => {
               return (
-                <Box
-                  key={i}
-                  boxWidth={boxWidth}
-                  boxHeight={boxHeight}
-                  gap={gap}
-                  selected={i === this.state.selectedSize}
-                  onClick={() => this.selectSize(i)}
-                >
-                  <Value boxFontSize={boxFontSize}>{size.value}</Value>
-                </Box>
+                <React.Fragment key={i}>
+                  {type === 'text' ? (
+                    <Box
+                      boxWidth={boxWidth}
+                      boxHeight={boxHeight}
+                      gap={gap}
+                      selected={option.selected === true}
+                      onClick={() => this.selectValue(i)}
+                    >
+                      <Value boxFontSize={boxFontSize}>{option.value}</Value>
+                    </Box>
+                  ) : (
+                    <Border
+                      selected={option.selected === true}
+                      onClick={() => this.selectValue(i)}
+                      borderSize={borderSize}
+                    >
+                      <ColorBox
+                        colorBoxWidth={colorBoxWidth || boxWidth}
+                        colorBoxHeight={colorBoxHeight || boxHeight}
+                        gap={gap}
+                        bg={option.value}
+                      />
+                    </Border>
+                  )}
+                </React.Fragment>
               );
             })}
         </Picker>

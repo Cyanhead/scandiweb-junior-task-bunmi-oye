@@ -14,8 +14,8 @@ import arrow from '../../assets/images/arrow_black.svg';
 
 import { Button } from '../Button';
 import AttributeSelector from '../AttributeSelector';
-import ColorSelector from '../ColorSelector';
-import { handleAttributes } from '../../helpers/handleAttributes';
+import { connect } from 'react-redux';
+import { addProduct } from '../../redux';
 
 class HoverCartButton extends Component {
   render() {
@@ -27,16 +27,25 @@ class HoverCartButton extends Component {
       enableCartBtnClick,
       disableCartBtnClick,
       attributes,
+      onClick,
+      product,
+      handleSelectedAttributes,
+      updateAttributes,
     } = this.props;
-
-    const attrValues = handleAttributes(attributes);
-    const colorValues = handleAttributes(attributes, 'swatch');
 
     return (
       <Wrap
         show={visible}
         enlarge={enlarge}
-        onClick={enlarge ? () => {} : handleOpenAttrSelect}
+        // if the product has attributes, allow attribute ...
+        // ... selection. But if no attributes, add to cart
+        onClick={
+          attributes && attributes.length
+            ? enlarge
+              ? () => {}
+              : handleOpenAttrSelect
+            : onClick
+        }
         onMouseEnter={enableCartBtnClick}
         onMouseLeave={disableCartBtnClick}
       >
@@ -50,46 +59,39 @@ class HoverCartButton extends Component {
                       <Icon src={arrow} alt="" width="20px" height="20px" />
                     </ArrowWrap>
                   </IconWrap>
-                  {attrValues.length
-                    ? attrValues.map(({ id, items, name }) => {
+                  {attributes.length
+                    ? attributes.map(attribute => {
                         return (
                           <AttributeSelector
-                            key={id}
-                            values={items}
-                            text={name}
+                            key={attribute.id}
+                            setDefaults={false}
+                            attribute={attribute}
+                            allowUpdate
+                            updateAttributes={updateAttributes}
                             inheritFont
                             fontSize="0.875em"
                             fontWeight="400"
                             fontCase="capitalize"
                             noSpan
                             boxFontSize="0.875em"
-                            boxWidth="32px"
-                            boxHeight="32px"
+                            boxWidth="24px"
+                            boxHeight="24px"
+                            colorBoxWidth="16px"
+                            colorBoxHeight="16px"
                             gap="8px"
-                            mar="4px 0"
+                            mar="8px 0"
                           />
                         );
                       })
                     : ''}
-                  {colorValues.length ? (
-                    <ColorSelector
-                      values={colorValues[0].items}
-                      inheritFont
-                      fontSize="0.875em"
-                      fontWeight="400"
-                      fontCase="capitalize"
-                      noSpan
-                      boxFontSize="0.875em"
-                      boxWidth="32px"
-                      boxHeight="32px"
-                      gap="8px"
-                      mar="4px 0"
-                    />
-                  ) : (
-                    ''
-                  )}
                 </Top>
-                <Button>add to cart</Button>
+                <Button
+                  onClick={() =>
+                    this.props.addProduct(handleSelectedAttributes(product))
+                  }
+                >
+                  add to cart
+                </Button>
               </>
             )}
           </AttrSelect>
@@ -104,4 +106,11 @@ class HoverCartButton extends Component {
   }
 }
 
-export default HoverCartButton;
+const mapDispatchToProps = dispatch => {
+  return {
+    addProduct: product => dispatch(addProduct(product)),
+  };
+};
+
+// connect to redux
+export default connect(null, mapDispatchToProps)(HoverCartButton);

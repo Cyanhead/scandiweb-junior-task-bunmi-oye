@@ -29,17 +29,16 @@ export const Heading = styled.div`
   font-weight: 700;
 `;
 
-export const RowGroup = styled.div``;
+export const RowGroup = styled.div`
+  max-height: 54vh;
+  overflow-y: auto;
+`;
 
 export const ProductRow = styled.div`
   display: flex;
   justify-content: space-between;
 
   padding: 18px 0 24px 0;
-
-  &:last-child {
-    padding-bottom: 0;
-  }
 `;
 
 export const ProductLeft = styled.div``;
@@ -78,4 +77,6 @@ export const TotalPrice = styled.div`
 export const ButtonGroup = styled.div`
   display: flex;
   justify-content: space-between;
+
+  width: 326px;
 `;
