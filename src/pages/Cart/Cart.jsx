@@ -105,18 +105,18 @@ class Cart extends Component {
           </RowGroup>
           <TotalSection>
             <Tax>
-              <CartP>Tax 21&#37;:</CartP>
+              <CartP>tax 21&#37;: </CartP>
               <Number>
                 {this.props.globalCurrency && this.props.globalCurrency.symbol}{' '}
                 calc
               </Number>
             </Tax>
             <Quantity>
-              <CartP>qunatity:</CartP>
-              <Number>50</Number>
+              <CartP>qunatity: </CartP>
+              <Number>{this.props.totalCount}</Number>
             </Quantity>
             <TotalPrice>
-              <CartP>total:</CartP>
+              <CartP fontWeight="500">total: </CartP>
               <Number>
                 {this.props.globalCurrency && this.props.globalCurrency.symbol}{' '}
                 50
@@ -135,6 +135,7 @@ class Cart extends Component {
 const mapStateToProps = state => {
   return {
     cartItems: state.cart.cartItems,
+    totalCount: state.cart.totalProductCount,
     globalCurrency: state.currency.globalCurrency,
   };
 };

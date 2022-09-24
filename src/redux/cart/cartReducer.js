@@ -75,7 +75,6 @@ const changeCartItemQuanitity = (cartItems, id, value) => {
   } else if (value === 'dec') {
     // decreses item quantity if 'dec' ...
     // ... and item quantity more than 1
-
     if (newCartItems[productIndex].quantity > 1) {
       newCartItems[productIndex].quantity -= 1;
     }
@@ -83,8 +82,25 @@ const changeCartItemQuanitity = (cartItems, id, value) => {
   return newCartItems;
 };
 
+const updateTotalCount = (cartItems, onNewAdd = false, product) => {
+  let count = 0;
+
+  cartItems.map(item => (count += item.quantity));
+
+  const similarProd = cartItems.find(item => item.id === product.id);
+
+  if (onNewAdd && similarProd) {
+    return count;
+  } else if (onNewAdd) {
+    return count + 1;
+  }
+
+  return count;
+};
+
 const initialState = {
   cartItems: [],
+  totalProductCount: 0,
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -93,6 +109,11 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cartItems: onAdd(state.cartItems, action.payload),
+        totalProductCount: updateTotalCount(
+          state.cartItems,
+          true,
+          action.payload
+        ),
       };
 
     case PRODUCT_QUANTITY_CHANGED:
@@ -103,6 +124,7 @@ const cartReducer = (state = initialState, action) => {
           action.payload.id,
           action.payload.value
         ),
+        totalProductCount: updateTotalCount(state.cartItems),
       };
 
     default:

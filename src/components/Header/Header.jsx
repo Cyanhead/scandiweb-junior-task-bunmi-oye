@@ -166,9 +166,11 @@ class Header extends Component {
               <CartContainer onClick={this.toggleCart} ref={this.cartIconRef}>
                 <CartWrap>
                   <CartIcon src={cart} alt="" />
-                  <CartBadge>
-                    <CartCounter>99</CartCounter>
-                  </CartBadge>
+                  {this.props.totalCount !== 0 && (
+                    <CartBadge>
+                      <CartCounter>{this.props.totalCount}</CartCounter>
+                    </CartBadge>
+                  )}
                 </CartWrap>
               </CartContainer>
             </Right>
@@ -185,4 +187,10 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return {
+    totalCount: state.cart.totalProductCount,
+  };
+};
+
+export default connect(mapStateToProps)(Header);
