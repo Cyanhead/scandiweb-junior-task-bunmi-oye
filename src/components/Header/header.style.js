@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+const primary = props => props.theme.color.primary;
 
 export const Container = styled.header`
   width: 100%;
@@ -32,19 +33,19 @@ export const TabWrap = styled.div`
   cursor: pointer;
 
   &:hover {
-    color: ${props => props.theme.color.primary}; // TODO delete
+    color: ${primary};
 
-    border-bottom: 2px solid ${props => props.theme.color.primary};
+    border-bottom: 2px solid ${primary};
   }
+  border-bottom: 2px solid ${({ active }) => (active ? primary : 'transparent')};
 `;
 
 export const TabText = styled.p`
-  /* color: ${props =>
-    props.theme.color.primary}; // TODO color is primary when active */
+  color: ${({ active }) => (active ? primary : 'inherit')};
 
   text-transform: uppercase;
   font-size: 1em;
-  font-weight: 400; // TODO 600 when active
+  font-weight: ${({ active }) => (active ? 600 : 400)};
   line-height: 20px;
 `;
 
@@ -140,5 +141,4 @@ export const GreyBox = styled.div`
   transition: 200ms ease-in-out;
   opacity: ${({ show }) => (show ? 1 : 0)};
   pointer-events: ${({ show }) => (show ? 'initial' : 'none')};
-  /* z-index: ${({ show }) => (show ? 2 : -1)}; */
 `;

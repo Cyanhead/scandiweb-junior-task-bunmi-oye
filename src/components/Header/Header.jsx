@@ -96,6 +96,38 @@ const withCategoriesQuery = graphql(FETCH_CURRENCIES);
 // Enhance component.
 const CategorySelect = withCategoriesQuery(withWrappedSelect);
 
+class Tabs extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeTab: 0,
+    };
+  }
+
+  setActiveTab = index => {
+    this.setState({ activeTab: index });
+  };
+
+  render() {
+    return (
+      <>
+        {this.props.names.map((name, i) => {
+          return (
+            <TabWrap
+              key={i}
+              onClick={() => this.setActiveTab(i)}
+              active={i === this.state.activeTab}
+            >
+              <TabText active={i === this.state.activeTab}>{name}</TabText>
+            </TabWrap>
+          );
+        })}
+      </>
+    );
+  }
+}
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -120,14 +152,6 @@ class Header extends Component {
   };
 
   render() {
-    const Tab = ({ name }) => {
-      return (
-        <TabWrap>
-          <TabText>{name}</TabText>
-        </TabWrap>
-      );
-    };
-
     const { showCart } = this.state;
     const { totalCount } = this.props;
 
@@ -136,9 +160,7 @@ class Header extends Component {
         <Container>
           <Wrap>
             <Left>
-              <Tab name="women" />
-              <Tab name="men" />
-              <Tab name="kids" />
+              <Tabs names={['women', 'men', 'kids']} />
             </Left>
             <Middle>
               <Link to="/">
