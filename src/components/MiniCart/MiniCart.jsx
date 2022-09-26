@@ -33,14 +33,18 @@ class MiniCart extends Component {
   }
 
   render() {
-    const { cartItems } = this.props;
+    const {
+      cartItems,
+      showCart,
+      handleClose,
+      cartRef,
+      globalCurrency,
+      totalPrice,
+    } = this.props;
 
     return (
-      <Container show={this.props.showCart}>
-        <CloseModalOnClickOutside
-          trigger={this.props.handleClose}
-          extraRef={this.props.cartRef}
-        >
+      <Container show={showCart}>
+        <CloseModalOnClickOutside trigger={handleClose} extraRef={cartRef}>
           <Wrap>
             <Heading>
               <MiniCartP weight="700">My bag</MiniCartP>,{' '}
@@ -68,13 +72,11 @@ class MiniCart extends Component {
                         <MiniCartP weight="300">{brand}</MiniCartP>
                         <MiniCartP weight="300">{name}</MiniCartP>
                         <MiniCartP weight="500">
-                          {this.props.globalCurrency &&
-                            this.props.globalCurrency.symbol}
-                          {this.props.globalCurrency.label !== undefined &&
+                          {globalCurrency && globalCurrency.symbol}
+                          {globalCurrency.label !== undefined &&
                             prices.find(
                               price =>
-                                price.currency.label ===
-                                this.props.globalCurrency.label
+                                price.currency.label === globalCurrency.label
                             ).amount}
                         </MiniCartP>
                         {attributes.length
@@ -124,14 +126,11 @@ class MiniCart extends Component {
               <TotalPrice>
                 <MiniCartP weight="700">Total</MiniCartP>
                 <MiniCartP weight="700">
-                  {this.props.globalCurrency &&
-                    this.props.globalCurrency.symbol}
-                  {this.props.totalPrice
-                    .toFixed(2)
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  {globalCurrency && globalCurrency.symbol}
+                  {totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </MiniCartP>
               </TotalPrice>
-              <ButtonGroup>
+              <ButtonGroup onClick={handleClose}>
                 <LinkButton
                   to="/cart"
                   bg="inherit"
