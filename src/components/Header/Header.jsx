@@ -129,6 +129,7 @@ class Header extends Component {
     };
 
     const { showCart } = this.state;
+    const { totalCount } = this.props;
 
     return (
       <>
@@ -149,9 +150,9 @@ class Header extends Component {
               <CartContainer onClick={this.toggleCart} ref={this.cartIconRef}>
                 <CartWrap>
                   <CartIcon src={cart} alt="" />
-                  {this.props.totalCount !== 0 && (
+                  {totalCount !== 0 && (
                     <CartBadge>
-                      <CartCounter>{this.props.totalCount}</CartCounter>
+                      <CartCounter>{totalCount}</CartCounter>
                     </CartBadge>
                   )}
                 </CartWrap>

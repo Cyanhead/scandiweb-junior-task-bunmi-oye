@@ -61,6 +61,9 @@ class Select extends Component {
       width,
       passObj,
       hoverArrow,
+      arrowW,
+      arrowML,
+      top,
     } = this.props;
     const { currentValue, isOpen, showArrowOnHover } = this.state;
 
@@ -83,8 +86,8 @@ class Select extends Component {
               alt=""
               isVisible={isOpen}
               hoverArrow={showArrowOnHover}
-              arrowW={this.props.arrowW}
-              arrowML={this.props.arrowML}
+              arrowW={arrowW}
+              arrowML={arrowML}
             />
           ) : (
             <ChevronDown
@@ -92,13 +95,13 @@ class Select extends Component {
               alt=""
               isVisible={isOpen}
               show
-              arrowW={this.props.arrowW}
-              arrowML={this.props.arrowML}
+              arrowW={arrowW}
+              arrowML={arrowML}
             />
           )}
         </SelectButton>
         <CloseModalOnClickOutside trigger={this.handleClose}>
-          <DropdownMenu isVisible={isOpen} top={this.props.top}>
+          <DropdownMenu isVisible={isOpen} top={top}>
             {values.map((value, index) => (
               <DropdownItem
                 onClick={

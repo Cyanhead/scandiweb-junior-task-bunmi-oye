@@ -128,6 +128,8 @@ class ProductPageComponent extends Component {
       return product;
     };
 
+    const { addProduct, globalCurrency } = this.props;
+
     return (
       <Container>
         <Wrap>
@@ -173,20 +175,17 @@ class ProductPageComponent extends Component {
             <Price>
               <PriceText>price:</PriceText>
               <PriceValue>
-                {this.props.globalCurrency && this.props.globalCurrency.symbol}
-                {this.props.globalCurrency.label !== undefined &&
+                {globalCurrency && globalCurrency.symbol}
+                {globalCurrency.label !== undefined &&
                   prices.find(
-                    price =>
-                      price.currency.label === this.props.globalCurrency.label
+                    price => price.currency.label === globalCurrency.label
                   ).amount}
               </PriceValue>
             </Price>
             <Button
               pad="16px"
               onClick={() =>
-                this.props.addProduct(
-                  handleSelectedAttributes(jsonParsedProduct)
-                )
+                addProduct(handleSelectedAttributes(jsonParsedProduct))
               }
             >
               add to cart

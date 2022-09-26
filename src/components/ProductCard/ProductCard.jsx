@@ -128,7 +128,8 @@ class ProductCard extends Component {
   };
 
   render() {
-    const { id, gallery, inStock, brand, name, prices } = this.props.product;
+    const { product, addProduct, globalCurrency } = this.props;
+    const { id, gallery, inStock, brand, name, prices } = product;
     const { show, enlarge, cartBtnover, selectedAttributes } = this.state;
 
     const handleSelectedAttributes = product => {
@@ -146,7 +147,7 @@ class ProductCard extends Component {
               <ImageWrap available={inStock}>
                 <Image src={gallery[0] || fallback} alt="" />
                 <HoverCartButton
-                  onClick={() => this.props.addProduct(this.props.product)}
+                  onClick={() => addProduct(product)}
                   visible={show}
                   enlarge={enlarge}
                   cartBtnover={cartBtnover}
@@ -155,7 +156,7 @@ class ProductCard extends Component {
                   enableCartBtnClick={this.enableCartBtnClick}
                   disableCartBtnClick={this.disableCartBtnClick}
                   attributes={selectedAttributes}
-                  product={this.props.product}
+                  product={product}
                   handleSelectedAttributes={handleSelectedAttributes}
                   updateAttributes={this.updateAttributes}
                 />
@@ -168,11 +169,10 @@ class ProductCard extends Component {
                 <ProductName>{name}</ProductName>
               </Title>
               <Price>
-                {this.props.globalCurrency && this.props.globalCurrency.symbol}
-                {this.props.globalCurrency !== undefined &&
+                {globalCurrency && globalCurrency.symbol}
+                {globalCurrency !== undefined &&
                   prices.find(
-                    price =>
-                      price.currency.label === this.props.globalCurrency.label
+                    price => price.currency.label === globalCurrency.label
                   ).amount}
               </Price>
             </Bottom>

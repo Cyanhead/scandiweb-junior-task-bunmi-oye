@@ -39,20 +39,33 @@ export class Button extends Component {
 
 export class LinkButton extends Component {
   render() {
+    const {
+      to,
+      bg,
+      bgHover,
+      bgActive,
+      fg,
+      pad,
+      border,
+      fontSize,
+      width,
+      height,
+      children,
+    } = this.props;
     return (
-      <ButtonLink to={this.props.to || '/'}>
+      <ButtonLink to={to || '/'}>
         <ButtonComponent
-          bg={this.props.bg}
-          bgHover={this.props.bgHover}
-          bgActive={this.props.bgActive}
-          fg={this.props.fg}
-          pad={this.props.pad}
-          border={this.props.border}
-          fontSize={this.props.fontSize}
-          width={this.props.width}
-          height={this.props.height}
+          bg={bg}
+          bgHover={bgHover}
+          bgActive={bgActive}
+          fg={fg}
+          pad={pad}
+          border={border}
+          fontSize={fontSize}
+          width={width}
+          height={height}
         >
-          {this.props.children}
+          {children}
         </ButtonComponent>
       </ButtonLink>
     );

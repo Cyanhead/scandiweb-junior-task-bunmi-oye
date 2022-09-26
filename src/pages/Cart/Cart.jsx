@@ -87,7 +87,7 @@ class CartImage extends Component {
 
 class Cart extends Component {
   render() {
-    const { cartItems } = this.props;
+    const { cartItems, totalPrice, totalCount, globalCurrency } = this.props;
 
     return (
       <Container>
@@ -113,13 +113,11 @@ class Cart extends Component {
                       <Brand>{brand}</Brand>
                       <Name>{name}</Name>
                       <Price>
-                        {this.props.globalCurrency &&
-                          this.props.globalCurrency.symbol}
-                        {this.props.globalCurrency !== undefined &&
+                        {globalCurrency && globalCurrency.symbol}
+                        {globalCurrency !== undefined &&
                           prices.find(
                             price =>
-                              price.currency.label ===
-                              this.props.globalCurrency.label
+                              price.currency.label === globalCurrency.label
                           ).amount}
                       </Price>
                       {attributes.length
@@ -150,23 +148,21 @@ class Cart extends Component {
             <Tax>
               <CartP>tax 21&#37;: </CartP>
               <Number>
-                {this.props.globalCurrency && this.props.globalCurrency.symbol}
-                {(this.props.totalPrice * 0.21)
+                {globalCurrency && globalCurrency.symbol}
+                {(totalPrice * 0.21)
                   .toFixed(2)
                   .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               </Number>
             </Tax>
             <Quantity>
               <CartP>qunatity: </CartP>
-              <Number>{this.props.totalCount}</Number>
+              <Number>{totalCount}</Number>
             </Quantity>
             <TotalPrice>
               <CartP fontWeight="500">total: </CartP>
               <Number>
-                {this.props.globalCurrency && this.props.globalCurrency.symbol}
-                {this.props.totalPrice
-                  .toFixed(2)
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                {globalCurrency && globalCurrency.symbol}
+                {totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               </Number>
             </TotalPrice>
             <Button width="280px" height="44px">
