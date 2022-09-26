@@ -10,6 +10,10 @@ export const Wrap = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   padding: 80px 24px;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const Left = styled.div`
@@ -62,6 +66,11 @@ export const Right = styled.div`
 
   max-width: 292px;
   margin-left: 100px;
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+    margin-left: 0;
+  }
 `;
 
 export const Title = styled.div`

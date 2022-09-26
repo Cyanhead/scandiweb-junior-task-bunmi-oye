@@ -27,4 +27,11 @@ export const Grid = styled.div`
 
   row-gap: 60px;
   column-gap: 20px;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media screen and (max-width: 480px) {
+    grid-template-columns: 1fr;
+  }
 `;
