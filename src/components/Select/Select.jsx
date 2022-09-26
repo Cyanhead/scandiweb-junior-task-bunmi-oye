@@ -17,6 +17,7 @@ class Select extends Component {
     this.state = {
       currentValue: '',
       isOpen: false,
+      showArrowOnHover: false,
     };
   }
 
@@ -59,8 +60,9 @@ class Select extends Component {
       pad,
       width,
       passObj,
+      hoverArrow,
     } = this.props;
-    const { currentValue, isOpen } = this.state;
+    const { currentValue, isOpen, showArrowOnHover } = this.state;
 
     return (
       <SelectWrap anchor={anchor}>
@@ -69,15 +71,27 @@ class Select extends Component {
           selectCase={selectCase}
           pad={pad}
           width={width}
+          onMouseEnter={() => this.setState({ showArrowOnHover: true })}
+          onMouseLeave={() => this.setState({ showArrowOnHover: false })}
         >
           {currentValue !== '' ? currentValue : values[0].displayValue}
           {noArrow ? (
             ''
+          ) : hoverArrow ? (
+            <ChevronDown
+              src={arrow}
+              alt=""
+              isVisible={isOpen}
+              hoverArrow={showArrowOnHover}
+              arrowW={this.props.arrowW}
+              arrowML={this.props.arrowML}
+            />
           ) : (
             <ChevronDown
               src={arrow}
               alt=""
               isVisible={isOpen}
+              show
               arrowW={this.props.arrowW}
               arrowML={this.props.arrowML}
             />

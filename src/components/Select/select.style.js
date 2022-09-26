@@ -76,8 +76,10 @@ export const DropdownItem = styled.div`
 `;
 
 export const ChevronDown = styled.img`
-  margin-left: ${props => props.arrowML || '10px'};
+  display: ${({ show, hoverArrow }) =>
+    show ? 'flex' : hoverArrow ? 'flex' : 'none'};
 
+  margin-left: ${props => props.arrowML || '10px'};
   width: ${props => props.arrowW || ''};
   height: auto;
 

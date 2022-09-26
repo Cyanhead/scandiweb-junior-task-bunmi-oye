@@ -25,6 +25,7 @@ class WrappedSelect extends Component {
         top="78px"
         arrowW="18px"
         arrowML="20px"
+        hoverArrow
         updateParent
       />
     );
