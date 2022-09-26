@@ -65,7 +65,7 @@ const onAdd = (cartItems, product, quantity = 1) => {
 
 const changeCartItemQuanitity = (cartItems, id, value) => {
   // makes a copy of the cart items array
-  const newCartItems = [...cartItems];
+  const newCartItems = structuredClone(cartItems);
 
   // finds the index of the item
   const productIndex = newCartItems.findIndex(product => product.newId === id);
@@ -78,6 +78,17 @@ const changeCartItemQuanitity = (cartItems, id, value) => {
     // ... and item quantity more than 1
     if (newCartItems[productIndex].quantity > 1) {
       newCartItems[productIndex].quantity -= 1;
+    } else if (newCartItems[productIndex].quantity <= 1) {
+      // if product quantity is 1 and value === 'dec'...
+      // ... remove the product from the cart
+
+      // clone cart
+      const cartCopy = structuredClone(cartItems);
+
+      // filter out the product to be removed
+      const newList = cartCopy.filter(item => item.newId !== id);
+
+      return newList;
     }
   }
   return newCartItems;
@@ -140,8 +151,21 @@ const cartReducer = (state = initialState, action) => {
           action.payload.id,
           action.payload.value
         ),
-        totalProductCount: updateTotalCount(state.cartItems),
-        totalPrice: sumTotalPrice(state.cartItems, state.evaluationCurrency),
+        totalProductCount: updateTotalCount(
+          changeCartItemQuanitity(
+            state.cartItems,
+            action.payload.id,
+            action.payload.value
+          )
+        ),
+        totalPrice: sumTotalPrice(
+          changeCartItemQuanitity(
+            state.cartItems,
+            action.payload.id,
+            action.payload.value
+          ),
+          state.evaluationCurrency
+        ),
       };
 
     case CURRENCY_CHANGED:
