@@ -6,6 +6,7 @@ import { graphql } from '@apollo/client/react/hoc';
 import { FETCH_CATEGORIES, FETCH_CATEGORY } from '../../graphql/queries';
 import Select from '../../components/Select';
 import ProductCard from '../../components/ProductCard';
+import ErrorBoundary from '../../components/ErrorBoundary';
 
 // Select Component wrapped with apollo HOC
 class WrappedSelect extends Component {
@@ -70,7 +71,9 @@ class ListingPageComponent extends Component {
           </Heading>
           <Grid>
             {products.slice(0, 6).map(product => (
-              <ProductCard key={product.id} product={product} />
+              <ErrorBoundary key={product.id}>
+                <ProductCard product={product} />
+              </ErrorBoundary>
             ))}
           </Grid>
         </Wrap>
