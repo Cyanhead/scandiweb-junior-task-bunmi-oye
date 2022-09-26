@@ -24,6 +24,14 @@ import { Button, LinkButton } from '../../components/Button';
 import CloseModalOnClickOutside from '../CloseModalOnClickOutside';
 
 class MiniCart extends Component {
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.showCart) {
+      document.body.style.overflowY = 'hidden';
+    } else {
+      document.body.style.overflowY = 'unset';
+    }
+  }
+
   render() {
     const { cartItems } = this.props;
 

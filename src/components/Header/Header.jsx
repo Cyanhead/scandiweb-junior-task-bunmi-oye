@@ -145,7 +145,6 @@ class Header extends Component {
               </Link>
             </Middle>
             <Right>
-              {/* <Select values={currencies} anchor top="65px" pad="16px 8px" /> */}
               <CategorySelect />
               <CartContainer onClick={this.toggleCart} ref={this.cartIconRef}>
                 <CartWrap>
