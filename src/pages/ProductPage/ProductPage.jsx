@@ -191,7 +191,10 @@ class ProductPageComponent extends Component {
             >
               add to cart
             </Button>
-            <Description>{description}</Description>
+            <Description
+              // i use this for lack of finding a better solution
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
           </Right>
         </Wrap>
       </Container>
