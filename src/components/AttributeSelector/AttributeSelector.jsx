@@ -71,6 +71,7 @@ class AttributeSelector extends Component {
       gap,
       boxFontSize,
       borderSize,
+      disableSelect,
     } = this.props;
 
     const options = this.state.initialAttribute.items;
@@ -99,6 +100,7 @@ class AttributeSelector extends Component {
                       gap={gap}
                       selected={option.selected === true}
                       onClick={() => this.selectValue(i)}
+                      disableSelect={disableSelect}
                     >
                       <Value boxFontSize={boxFontSize}>{option.value}</Value>
                     </Box>
@@ -107,6 +109,7 @@ class AttributeSelector extends Component {
                       selected={option.selected === true}
                       onClick={() => this.selectValue(i)}
                       borderSize={borderSize}
+                      disableSelect={disableSelect}
                     >
                       <ColorBox
                         colorBoxWidth={colorBoxWidth || boxWidth}

@@ -130,6 +130,7 @@ class Cart extends Component {
                                 noSpan
                                 gap="12px"
                                 allowUpdate={false}
+                                disableSelect
                               />
                             );
                           })

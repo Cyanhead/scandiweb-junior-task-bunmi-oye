@@ -99,6 +99,7 @@ class MiniCart extends Component {
                                   colorBoxHeight="16px"
                                   gap="8px"
                                   mar="8px 0"
+                                  disableSelect
                                 />
                               );
                             })

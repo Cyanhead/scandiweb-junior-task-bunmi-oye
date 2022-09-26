@@ -21,6 +21,7 @@ export const Heading = styled.h1`
 `;
 
 export const RowGroup = styled.div`
+  min-height: calc(100vh - 530px);
   margin-bottom: 24px;
 `;
 

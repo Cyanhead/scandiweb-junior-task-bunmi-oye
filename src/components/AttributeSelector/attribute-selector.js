@@ -35,6 +35,9 @@ export const Border = styled.div`
 
   cursor: pointer;
   transition: 150ms ease-in-out;
+
+  pointer-events: ${({ disableSelect }) =>
+    disableSelect ? 'none' : 'initial'};
 `;
 
 export const Box = styled.div`
@@ -50,6 +53,9 @@ export const Box = styled.div`
   width: ${props => props.boxWidth || '64px'};
   height: ${props => props.boxHeight || '44px'};
   margin-right: ${props => props.gap || ''};
+
+  pointer-events: ${({ disableSelect }) =>
+    disableSelect ? 'none' : 'initial'};
 
   &:last-child {
     margin-right: 0;
