@@ -12,9 +12,22 @@ import ErrorBoundary from '../../components/ErrorBoundary';
 class WrappedSelect extends Component {
   render() {
     const { loading, error, categories } = this.props.data;
-    if (loading) return <p>Loading...</p>; // TODO beautify this
-    if (error) return <p>Error :(</p>; // TODO beautify this
-
+    if (loading)
+      return (
+        <Container>
+          <Wrap>
+            <p>Loading...</p>
+          </Wrap>
+        </Container>
+      );
+    if (error)
+      return (
+        <Container>
+          <Wrap>
+            <p>Error:(</p>
+          </Wrap>
+        </Container>
+      );
     const categoriesList = categories.map(category => {
       return { displayValue: category.name };
     });
@@ -58,8 +71,22 @@ class ListingPageComponent extends Component {
 
   render() {
     const { loading, error, category } = this.props.data;
-    if (loading) return <h1>Loading...</h1>; // TODO beautify this
-    if (error) return <h1>Error :(</h1>; // TODO beautify this
+    if (loading)
+      return (
+        <Container>
+          <Wrap>
+            <h1>Loading...</h1>
+          </Wrap>
+        </Container>
+      );
+    if (error)
+      return (
+        <Container>
+          <Wrap>
+            <h1>Error:(</h1>
+          </Wrap>
+        </Container>
+      );
 
     const { products } = category;
 

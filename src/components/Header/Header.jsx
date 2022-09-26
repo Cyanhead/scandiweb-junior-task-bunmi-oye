@@ -59,8 +59,22 @@ class WrappedSelect extends Component {
 
   render() {
     const { loading, error, currencies } = this.props.data;
-    if (loading) return <p>Loading...</p>; // TODO beautify this
-    if (error) return <p>Error :(</p>; // TODO beautify this
+    if (loading)
+      return (
+        <Container>
+          <Wrap>
+            <p>Loading...</p>
+          </Wrap>
+        </Container>
+      );
+    if (error)
+      return (
+        <Container>
+          <Wrap>
+            <p>Error:(</p>
+          </Wrap>
+        </Container>
+      );
 
     const categoriesList = currencies.map(({ symbol, label }) => {
       return { displayValue: symbol, selectValue: label };

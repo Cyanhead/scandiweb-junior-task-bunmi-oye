@@ -110,9 +110,22 @@ class ProductPageComponent extends Component {
 
   render() {
     const { loading, error, product } = this.props.data;
-    if (loading) return <h1>Loading...</h1>; // TODO beautify this
-    if (error) return <h1>Error :(</h1>; // TODO beautify this
-
+    if (loading)
+      return (
+        <Container>
+          <Wrap>
+            <h1>Loading...</h1>
+          </Wrap>
+        </Container>
+      );
+    if (error)
+      return (
+        <Container>
+          <Wrap>
+            <h1>Error:(</h1>
+          </Wrap>
+        </Container>
+      );
     // JSON parsed product data to be ...
     // ... passed to cart state on add to cart
     const jsonParsedProduct = JSON.parse(JSON.stringify(product));
@@ -229,5 +242,3 @@ const ProductPage = withProductQuery(withProductPageComponent);
 
 // Export the enhanced component.
 export default ProductPage;
-
-// TODO some descriptions have p tags in them
