@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { graphql } from '@apollo/client/react/hoc';
 
 import {
@@ -214,9 +213,7 @@ class Header extends Component {
               <CategoryTabs />
             </Left>
             <Middle>
-              <Link to="/">
-                <Logo src={logo} alt="logo" />
-              </Link>
+              <Logo src={logo} alt="logo" />
             </Middle>
             <Right>
               <CurrencySelect />
