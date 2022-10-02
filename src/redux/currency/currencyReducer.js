@@ -1,4 +1,3 @@
-// import { changeCurrency } from './currencyActions';
 import { CURRENCY_CHANGED } from './currencyTypes';
 
 const initialState = {
