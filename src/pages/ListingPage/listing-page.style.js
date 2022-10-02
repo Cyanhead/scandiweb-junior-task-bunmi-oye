@@ -13,11 +13,12 @@ export const Wrap = styled.div`
   padding: 80px 24px;
 `;
 
-export const Heading = styled.div`
+export const Heading = styled.h1`
   margin: 0 0 80px 0;
 
   font-weight: 400;
   font-size: 1.75em;
+  text-transform: capitalize;
 `;
 
 export const Grid = styled.div`

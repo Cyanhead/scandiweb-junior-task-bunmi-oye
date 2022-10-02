@@ -3,68 +3,18 @@ import React, { Component } from 'react';
 import { Container, Wrap, Heading, Grid } from './listing-page.style';
 
 import { graphql } from '@apollo/client/react/hoc';
-import { FETCH_CATEGORIES, FETCH_CATEGORY } from '../../graphql/queries';
-import Select from '../../components/Select';
+import { FETCH_CATEGORY } from '../../graphql/queries';
 import ProductCard from '../../components/ProductCard';
 import ErrorBoundary from '../../components/ErrorBoundary';
-
-// Select Component wrapped with apollo HOC
-class WrappedSelect extends Component {
-  render() {
-    const { loading, error, categories } = this.props.data;
-    if (loading)
-      return (
-        <Container>
-          <Wrap>
-            <p>Loading...</p>
-          </Wrap>
-        </Container>
-      );
-    if (error)
-      return (
-        <Container>
-          <Wrap>
-            <p>Error:(</p>
-          </Wrap>
-        </Container>
-      );
-    const categoriesList = categories.map(category => {
-      return { displayValue: category.name };
-    });
-
-    return (
-      <Select
-        values={categoriesList}
-        setSelect={this.props.setCategory}
-        top="78px"
-        arrowW="18px"
-        arrowML="20px"
-        hoverArrow
-        updateParent
-      />
-    );
-  }
-}
-
-// fetch categories list to pass to Select component
-const withCategoriesQuery = graphql(FETCH_CATEGORIES);
-
-// Enhance component.
-const CategorySelect = withCategoriesQuery(WrappedSelect);
+import { connect } from 'react-redux';
 
 class ListingPageComponent extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      category: 'all',
-    };
-  }
-
+  // refetch category list with new query
   componentDidUpdate() {
-    this.props.data.refetch({ categoryName: this.state.category });
+    this.props.data.refetch({ categoryName: this.props.category });
   }
 
+  // set state to selected category
   setCategory = category => {
     this.setState({ category: category });
   };
@@ -93,9 +43,7 @@ class ListingPageComponent extends Component {
     return (
       <Container>
         <Wrap>
-          <Heading>
-            <CategorySelect setCategory={this.setCategory} />
-          </Heading>
+          <Heading>{this.props.category}</Heading>
           <Grid>
             {products.slice(0, 6).map(product => (
               <ErrorBoundary key={product.id}>
@@ -109,13 +57,22 @@ class ListingPageComponent extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    category: state.category.listingCategory,
+  };
+};
+
+// connect to redux
+const withListingPageComponent = connect(mapStateToProps)(ListingPageComponent);
+
 // Create enhancer function for apollo HOC
 const withCategoryQuery = graphql(FETCH_CATEGORY, {
   options: () => ({ variables: { categoryName: '' } }),
 });
 
 // Enhance component.
-const ListingPage = withCategoryQuery(ListingPageComponent);
+const ListingPage = withCategoryQuery(withListingPageComponent);
 
 // Export the enhanced component.
 export default ListingPage;
