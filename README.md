@@ -1,4 +1,15 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using [clean-cra Template](https://github.com/JorgePasco1/cra-template-clean-cra).
+# SCANDIWEB JUNIOR REACT TASK
+
+## Technologies
+
+This project was built following the task guidelines, and the following technologies were used:
+
+- react (create-react-app)
+- styled-components
+- apollo-graphql
+- react-router
+- redux
+- font-source
 
 ## Available Scripts
 
@@ -9,60 +20,34 @@ In the project directory, you can run:
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Gallery
 
-### `yarn test`
+#### PLP
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![image of homepage](/src/assets/screenshots/home.jpeg)
 
-### `yarn build`
+#### PDP
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![image of homepage](/src/assets/screenshots/product.jpeg)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+#### Minicart
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![image of homepage](/src/assets/screenshots/minicart.jpeg)
 
-### `yarn eject`
+#### Cart
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+![image of homepage](/src/assets/screenshots/cart.jpeg)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Closing Remarks
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+I enjoyed building this project and I learnt a lot while at it. Such as
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- React class components (I'd always procrastinated because I was saisfied with hooks)
+- GraphQL & Apollo (I had some difficulty with getting this one to work with class components)
+- JS deep cloning (by far the best thing I learnt)
 
-## Learn More
+JS deep cloning using the [structuredClone](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) method was my favorite thing to learn because prior to discovering it, I used the spread operator and struggled with bugs for a while in cart logic.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+For what it's worth, I want to mention that I only made my repo private after I was done with my initial submission. I later noticed that my repo had been cloned by multiple people. This broke my heart as I really worked hard on my cart logic and especially my "quick shop" implementation (as I thought it was unique). I hope this doesn't affect my chances.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Thank you.
