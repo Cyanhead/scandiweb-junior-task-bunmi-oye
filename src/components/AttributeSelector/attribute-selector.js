@@ -50,7 +50,9 @@ export const Box = styled.div`
   background-color: ${({ selected }) => (selected ? 'black' : 'white')};
   color: ${({ selected }) => (selected ? 'white' : 'black')};
 
-  width: ${props => props.boxWidth || '64px'};
+  min-width: ${props => props.boxWidth || ''};
+  width: 100%;
+  max-width: 64px;
   height: ${props => props.boxHeight || '44px'};
   margin-right: ${props => props.gap || ''};
 
