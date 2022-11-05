@@ -45,7 +45,7 @@ class ListingPageComponent extends Component {
         <Wrap>
           <Heading>{this.props.category}</Heading>
           <Grid>
-            {products.slice(0, 6).map(product => (
+            {products.map(product => (
               <ErrorBoundary key={product.id}>
                 <ProductCard product={product} />
               </ErrorBoundary>
