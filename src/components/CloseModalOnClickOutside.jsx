@@ -21,9 +21,8 @@ export default class CloseModalOnClickOutside extends Component {
   }
 
   handleClickOutside = event => {
-    // if the clicked object doesn't contain ...
-    // ... the event target, trigger action
-    // const extraRef = this.props.extraRef.current.contains(event.target) || true;
+    // if the clicked object doesn't  ...
+    // ... contain the event target, trigger action
     const extraRef =
       this.props.extraRef !== undefined
         ? !this.props.extraRef.current.contains(event.target)

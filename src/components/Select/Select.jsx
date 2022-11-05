@@ -19,6 +19,8 @@ class Select extends Component {
       isOpen: false,
       showArrowOnHover: false,
     };
+
+    this.selectBtnRef = React.createRef();
   }
 
   toggleDropdown = () => {
@@ -76,6 +78,7 @@ class Select extends Component {
           width={width}
           onMouseEnter={() => this.setState({ showArrowOnHover: true })}
           onMouseLeave={() => this.setState({ showArrowOnHover: false })}
+          ref={this.selectBtnRef}
         >
           {currentValue !== '' ? currentValue : values[0].displayValue}
           {noArrow ? (
@@ -100,7 +103,10 @@ class Select extends Component {
             />
           )}
         </SelectButton>
-        <CloseModalOnClickOutside trigger={this.handleClose}>
+        <CloseModalOnClickOutside
+          trigger={this.handleClose}
+          extraRef={this.selectBtnRef}
+        >
           <DropdownMenu isVisible={isOpen} top={top}>
             {values.map((value, index) => (
               <DropdownItem
