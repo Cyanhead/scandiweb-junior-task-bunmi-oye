@@ -115,6 +115,7 @@ const CurrencySelect = withCurrenciesQuery(withWrappedSelect);
 class Tabs extends Component {
   setActiveTab = name => {
     this.props.changeCategory(name);
+    window.location.href = '/';
   };
 
   render() {
