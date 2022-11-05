@@ -27,6 +27,7 @@ import { FETCH_CATEGORIES, FETCH_CURRENCIES } from '../../graphql/queries';
 import { connect } from 'react-redux';
 import { changeCurrency } from '../../redux';
 import { changeCategory } from '../../redux/category/categoryActions';
+import { Link } from 'react-router-dom';
 
 class WrappedSelect extends Component {
   constructor(props) {
@@ -213,7 +214,9 @@ class Header extends Component {
               <CategoryTabs />
             </Left>
             <Middle>
-              <Logo src={logo} alt="logo" />
+              <Link to="/">
+                <Logo src={logo} alt="logo" />
+              </Link>
             </Middle>
             <Right>
               <CurrencySelect />
