@@ -3,7 +3,8 @@ const primary = props => props.theme.color.primary;
 
 export const Container = styled.header`
   width: 100%;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 3;
 
   background-color: ${props => props.theme.color.white};
@@ -11,6 +12,7 @@ export const Container = styled.header`
 
 export const Wrap = styled.div`
   position: relative;
+  top: 0;
 
   display: flex;
   align-items: center;
