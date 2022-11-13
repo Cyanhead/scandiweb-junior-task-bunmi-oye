@@ -140,7 +140,7 @@ class ProductCard extends Component {
     };
 
     return (
-      <Container available={inStock}>
+      <Container>
         <ProductLink to={cartBtnover ? '' : `/product/${id}`}>
           <Wrap onMouseEnter={this.showCartBtn} onMouseLeave={this.hideCartBtn}>
             <Top>

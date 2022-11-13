@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 const fadeGrey = props => props.theme.color.fadeGrey;
 
 export const Container = styled.div`
-  pointer-events: ${({ available }) => (available ? 'initial' : 'none')};
   cursor: pointer;
 `;
 

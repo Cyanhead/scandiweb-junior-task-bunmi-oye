@@ -130,7 +130,7 @@ class ProductPageComponent extends Component {
     // ... passed to cart state on add to cart
     const jsonParsedProduct = JSON.parse(JSON.stringify(product));
 
-    const { name, gallery, description, brand, attributes, prices } =
+    const { name, gallery, description, brand, inStock, attributes, prices } =
       jsonParsedProduct;
 
     const { previewImage } = this.state;
@@ -180,6 +180,7 @@ class ProductPageComponent extends Component {
                       updateAttributes={this.updateAttributes}
                       noSpan
                       gap="12px"
+                      disableSelect={inStock !== true}
                     />
                   );
                 })
@@ -200,6 +201,7 @@ class ProductPageComponent extends Component {
               onClick={() =>
                 addProduct(handleSelectedAttributes(jsonParsedProduct))
               }
+              disable={inStock !== true}
             >
               add to cart
             </Button>

@@ -56,6 +56,7 @@ export const FETCH_PRODUCT = gql`
       gallery
       description
       brand
+      inStock
       attributes {
         id
         type
