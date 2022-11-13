@@ -34,6 +34,8 @@ class ProductPageComponent extends Component {
       previewImage: 0,
       selectedAttributes: null,
     };
+
+    this.descRef = React.createRef();
   }
 
   componentDidMount() {
@@ -74,6 +76,9 @@ class ProductPageComponent extends Component {
         selectedAttributes: modifiedAttributes,
       });
     }
+
+    // sets the innerHTML of the product description (solution to dangerouslySetInnerHTML)
+    this.descRef.current.innerHTML = this.props.data.product.description;
   };
 
   // * change the index of the large (preview) image
@@ -205,10 +210,7 @@ class ProductPageComponent extends Component {
             >
               add to cart
             </Button>
-            <Description
-              // i use this for lack of finding a better solution
-              dangerouslySetInnerHTML={{ __html: description }}
-            />
+            <Description ref={this.descRef}>{description}</Description>
           </Right>
         </Wrap>
       </Container>

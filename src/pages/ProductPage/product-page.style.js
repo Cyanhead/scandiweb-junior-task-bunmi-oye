@@ -109,7 +109,7 @@ export const PriceValue = styled.p`
   font-weight: 700;
 `;
 
-export const Description = styled.p`
+export const Description = styled.div`
   margin-top: 40px;
 
   font-family: 'Roboto', sans-serif;
