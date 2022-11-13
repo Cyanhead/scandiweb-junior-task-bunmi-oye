@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import { Wrapper, ButtonComponent, ButtonLink } from './button.style';
 
-export class Button extends Component {
+export class Button extends PureComponent {
   render() {
     const {
       bg,
@@ -39,7 +39,7 @@ export class Button extends Component {
   }
 }
 
-export class LinkButton extends Component {
+export class LinkButton extends PureComponent {
   render() {
     const {
       to,

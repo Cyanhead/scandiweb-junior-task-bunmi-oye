@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   SelectWrap,
   SelectButton,
@@ -10,7 +10,7 @@ import {
 import arrow from '../../assets/images/chevron_down.svg';
 import CloseModalOnClickOutside from '../CloseModalOnClickOutside';
 
-class Select extends Component {
+class Select extends PureComponent {
   constructor(props) {
     super(props);
 

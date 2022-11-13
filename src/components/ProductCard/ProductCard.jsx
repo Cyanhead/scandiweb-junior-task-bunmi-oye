@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import HoverCartButton from '../HoverCartButton';
 
 import {
@@ -19,7 +19,7 @@ import fallback from '../../assets/images/logo.svg';
 import { connect } from 'react-redux';
 import { addProduct } from '../../redux';
 
-class ProductCard extends Component {
+class ProductCard extends PureComponent {
   constructor(props) {
     super(props);
 

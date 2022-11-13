@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import {
   Wrap,
@@ -10,7 +10,7 @@ import {
   Value,
 } from './attribute-selector';
 
-class AttributeSelector extends Component {
+class AttributeSelector extends PureComponent {
   constructor(props) {
     super(props);
 

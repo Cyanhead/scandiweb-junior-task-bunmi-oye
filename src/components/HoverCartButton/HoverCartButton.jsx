@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import {
   Wrap,
@@ -17,7 +17,7 @@ import AttributeSelector from '../AttributeSelector';
 import { connect } from 'react-redux';
 import { addProduct } from '../../redux';
 
-class HoverCartButton extends Component {
+class HoverCartButton extends PureComponent {
   render() {
     const {
       visible,

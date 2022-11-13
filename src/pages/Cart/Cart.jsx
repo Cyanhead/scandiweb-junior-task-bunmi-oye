@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -32,7 +32,7 @@ import { Button } from '../../components/Button';
 
 import arrow from '../../assets/images/arrow.svg';
 
-class CartImage extends Component {
+class CartImage extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -85,7 +85,7 @@ class CartImage extends Component {
   }
 }
 
-class Cart extends Component {
+class Cart extends PureComponent {
   render() {
     const { cartItems, totalPrice, totalCount, globalCurrency } = this.props;
 
