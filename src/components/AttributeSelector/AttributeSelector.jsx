@@ -26,8 +26,8 @@ class AttributeSelector extends PureComponent {
       const newAttribute = structuredClone(this.state.initialAttribute);
       // add a "selected: false" key-value pair to all items
       newAttribute.items.forEach(item => (item.selected = false));
-      // set the "select" key of the item on the first ...
-      // ... index to true as a default value
+      // set the "select" key of the item on the ...
+      // ... first index to true as a default value
       newAttribute.items[0].selected = true;
       // update state
       this.setState({

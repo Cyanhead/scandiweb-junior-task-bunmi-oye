@@ -31,7 +31,7 @@ class ProductCard extends PureComponent {
     };
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate = (_, prevState) => {
     // * if selected attribute state has not been updated ...
     // * ... set the first indices of all attributes as default
     if (prevState && prevState.selectedAttributes === null) {

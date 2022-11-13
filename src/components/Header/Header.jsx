@@ -38,7 +38,7 @@ class WrappedSelect extends Component {
     };
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate = (_, prevState) => {
     if (prevState && prevState.currency === null) {
       this.setState({
         currency: this.props.data.currencies[0],

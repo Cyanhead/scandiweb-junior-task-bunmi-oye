@@ -24,8 +24,7 @@ import { Button, LinkButton } from '../../components/Button';
 import CloseModalOnClickOutside from '../CloseModalOnClickOutside';
 
 class MiniCart extends PureComponent {
-  // TODO remove unused variables
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate() {
     if (this.props.showCart) {
       document.body.style.overflowY = 'hidden';
     } else {
