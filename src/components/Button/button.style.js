@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+export const Wrapper = styled.div`
+  pointer-events: ${({ disable }) => (disable ? 'none' : 'iherit')};
+`;
+
 export const ButtonComponent = styled.button`
   display: flex;
   align-items: center;

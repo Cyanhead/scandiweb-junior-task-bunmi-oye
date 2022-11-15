@@ -34,6 +34,8 @@ class ProductPageComponent extends Component {
       previewImage: 0,
       selectedAttributes: null,
     };
+
+    this.descRef = React.createRef();
   }
 
   componentDidMount() {
@@ -41,7 +43,7 @@ class ProductPageComponent extends Component {
     this.props.data.refetch({ productId: id });
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate = (_, prevState) => {
     // * if selected attribute state has not been updated ...
     // * ... set the first indices of all attributes as default
     if (prevState && prevState.selectedAttributes === null) {
@@ -74,6 +76,9 @@ class ProductPageComponent extends Component {
         selectedAttributes: modifiedAttributes,
       });
     }
+
+    // sets the innerHTML of the product description (solution to dangerouslySetInnerHTML)
+    this.descRef.current.innerHTML = this.props.data.product.description;
   };
 
   // * change the index of the large (preview) image
@@ -130,7 +135,7 @@ class ProductPageComponent extends Component {
     // ... passed to cart state on add to cart
     const jsonParsedProduct = JSON.parse(JSON.stringify(product));
 
-    const { name, gallery, description, brand, attributes, prices } =
+    const { name, gallery, description, brand, inStock, attributes, prices } =
       jsonParsedProduct;
 
     const { previewImage } = this.state;
@@ -180,6 +185,7 @@ class ProductPageComponent extends Component {
                       updateAttributes={this.updateAttributes}
                       noSpan
                       gap="12px"
+                      disableSelect={inStock !== true}
                     />
                   );
                 })
@@ -200,13 +206,11 @@ class ProductPageComponent extends Component {
               onClick={() =>
                 addProduct(handleSelectedAttributes(jsonParsedProduct))
               }
+              disable={inStock !== true}
             >
               add to cart
             </Button>
-            <Description
-              // i use this for lack of finding a better solution
-              dangerouslySetInnerHTML={{ __html: description }}
-            />
+            <Description ref={this.descRef}>{description}</Description>
           </Right>
         </Wrap>
       </Container>

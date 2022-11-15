@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 const fadeGrey = props => props.theme.color.fadeGrey;
 
 export const Container = styled.div`
-  pointer-events: ${({ available }) => (available ? 'initial' : 'none')};
   cursor: pointer;
 `;
 
@@ -29,6 +28,10 @@ export const Top = styled.div`
 export const ImageWrap = styled.div`
   position: relative;
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   max-width: 356px;
   width: 100%;
   height: 338px;
@@ -40,7 +43,7 @@ export const Image = styled.img`
   width: 100%;
   height: 100%;
 
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 export const OutOfStock = styled.p`

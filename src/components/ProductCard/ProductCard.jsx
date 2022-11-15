@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import HoverCartButton from '../HoverCartButton';
 
 import {
@@ -19,7 +19,7 @@ import fallback from '../../assets/images/logo.svg';
 import { connect } from 'react-redux';
 import { addProduct } from '../../redux';
 
-class ProductCard extends Component {
+class ProductCard extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -31,7 +31,7 @@ class ProductCard extends Component {
     };
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidUpdate = (_, prevState) => {
     // * if selected attribute state has not been updated ...
     // * ... set the first indices of all attributes as default
     if (prevState && prevState.selectedAttributes === null) {
@@ -140,7 +140,7 @@ class ProductCard extends Component {
     };
 
     return (
-      <Container available={inStock}>
+      <Container>
         <ProductLink to={cartBtnover ? '' : `/product/${id}`}>
           <Wrap onMouseEnter={this.showCartBtn} onMouseLeave={this.hideCartBtn}>
             <Top>

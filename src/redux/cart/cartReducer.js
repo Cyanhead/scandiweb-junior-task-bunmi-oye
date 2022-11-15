@@ -3,8 +3,7 @@ import { PRODUCT_ADDED, PRODUCT_QUANTITY_CHANGED } from './cartTypes';
 
 // * function to handle addition of products to cart
 const onAdd = (cartItems, product, quantity = 1) => {
-  // function to create a unique ...
-  // ... product id using selected attributes
+  // create a unique product id using selected attributes
   const createNewId = receivedProduct => {
     const extracted = [];
     extracted.push(receivedProduct.id);
@@ -12,14 +11,11 @@ const onAdd = (cartItems, product, quantity = 1) => {
       const selectedValues = attr.items.filter(
         value => value.selected === true
       );
-      // remove whitespace from attr name
       const trimmedAttrName = attr.id.replace(/\s+/g, '');
-      // join attr name and selected value into one string
       const attrString = `${trimmedAttrName}=${selectedValues[0].value}`;
-      // push attr string to array for joining
       extracted.push(attrString);
     });
-    // joins the product id and selected attributes to form new id
+
     const newId = extracted.join('+');
     return newId;
   };
@@ -46,7 +42,7 @@ const onAdd = (cartItems, product, quantity = 1) => {
       ...productWithNewId,
       quantity: quantity,
     };
-    // push product to cart as new entry
+
     cartClone.push(newProduct);
   } else {
     // if the product already exists in cart ...

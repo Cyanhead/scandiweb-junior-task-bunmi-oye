@@ -80,13 +80,17 @@ export const ProductRight = styled.div`
 
 export const ImageWrap = styled.div`
   position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Image = styled.img`
   width: 200px;
   height: 288px;
 
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 export const Arrows = styled.div`

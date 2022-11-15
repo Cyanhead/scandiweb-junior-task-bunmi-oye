@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import { Wrap, IconWrap, Icon, Text } from './counter.style';
 
@@ -7,7 +7,7 @@ import minus from '../../assets/images/minus.svg';
 import { connect } from 'react-redux';
 import { changeQuantity } from '../../redux';
 
-class Counter extends Component {
+class Counter extends PureComponent {
   render() {
     const {
       mar,

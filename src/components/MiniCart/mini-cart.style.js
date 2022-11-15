@@ -78,13 +78,17 @@ export const ProductRight = styled.div`
 
 export const ImageWrap = styled.div`
   position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Image = styled.img`
   width: 120px;
   height: 190px;
 
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 export const TotalSection = styled.div``;

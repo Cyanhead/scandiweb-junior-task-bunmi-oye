@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -23,8 +23,8 @@ import { Button, LinkButton } from '../../components/Button';
 
 import CloseModalOnClickOutside from '../CloseModalOnClickOutside';
 
-class MiniCart extends Component {
-  componentDidUpdate(prevProps, prevState) {
+class MiniCart extends PureComponent {
+  componentDidUpdate() {
     if (this.props.showCart) {
       document.body.style.overflowY = 'hidden';
     } else {

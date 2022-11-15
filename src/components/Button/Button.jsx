@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-import { ButtonComponent, ButtonLink } from './button.style';
+import { Wrapper, ButtonComponent, ButtonLink } from './button.style';
 
-export class Button extends Component {
+export class Button extends PureComponent {
   render() {
     const {
       bg,
@@ -16,28 +16,30 @@ export class Button extends Component {
       height,
       onClick,
       children,
+      disable,
     } = this.props;
 
     return (
-      <ButtonComponent
-        bg={bg}
-        bgHover={bgHover}
-        bgActive={bgActive}
-        fg={fg}
-        pad={pad}
-        border={border}
-        fontSize={fontSize}
-        width={width}
-        height={height}
-        onClick={onClick}
-      >
-        {children}
-      </ButtonComponent>
+      <Wrapper disable={disable} onClick={onClick}>
+        <ButtonComponent
+          bg={bg}
+          bgHover={bgHover}
+          bgActive={bgActive}
+          fg={fg}
+          pad={pad}
+          border={border}
+          fontSize={fontSize}
+          width={width}
+          height={height}
+        >
+          {children}
+        </ButtonComponent>
+      </Wrapper>
     );
   }
 }
 
-export class LinkButton extends Component {
+export class LinkButton extends PureComponent {
   render() {
     const {
       to,
