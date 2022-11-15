@@ -5,8 +5,6 @@ import {
   Container,
   Wrap,
   Left,
-  TabWrap,
-  TabText,
   Middle,
   Logo,
   Right,
@@ -23,11 +21,11 @@ import MiniCart from '../MiniCart';
 
 import logo from '../../assets/images/logo.svg';
 import cart from '../../assets/images/empty_cart.svg';
-import { FETCH_CATEGORIES, FETCH_CURRENCIES } from '../../graphql/queries';
+import { FETCH_CURRENCIES } from '../../graphql/queries';
 import { connect } from 'react-redux';
 import { changeCurrency } from '../../redux';
-import { changeCategory } from '../../redux/category/categoryActions';
 import { Link } from 'react-router-dom';
+import CategoryTabs from '../Tabs';
 
 class WrappedSelect extends Component {
   constructor(props) {
@@ -110,75 +108,6 @@ const withCurrenciesQuery = graphql(FETCH_CURRENCIES);
 
 // Enhance component.
 const CurrencySelect = withCurrenciesQuery(withWrappedSelect);
-
-// * CATEGORIES TAB SELECTOR
-class Tabs extends Component {
-  setActiveTab = name => {
-    this.props.changeCategory(name);
-    window.location.href = '/';
-  };
-
-  render() {
-    const { loading, error, categories } = this.props.data;
-
-    if (loading)
-      return (
-        <Container>
-          <Wrap>
-            <p>Loading...</p>
-          </Wrap>
-        </Container>
-      );
-    if (error)
-      return (
-        <Container>
-          <Wrap>
-            <p>Error:(</p>
-          </Wrap>
-        </Container>
-      );
-
-    return (
-      <>
-        {categories.map(({ name }) => {
-          return (
-            <TabWrap
-              key={name}
-              onClick={() => this.setActiveTab(name)}
-              active={name === this.props.category}
-            >
-              <TabText active={name === this.props.category}>{name}</TabText>
-            </TabWrap>
-          );
-        })}
-      </>
-    );
-  }
-}
-
-const mapCategoryStateToProps = state => {
-  return {
-    category: state.category.listingCategory,
-  };
-};
-
-const mapCategoryDispatchToProps = dispatch => {
-  return {
-    changeCategory: category => dispatch(changeCategory(category)),
-  };
-};
-
-// connect to redux
-const withTabs = connect(
-  mapCategoryStateToProps,
-  mapCategoryDispatchToProps
-)(Tabs);
-
-// fetch categories list to pass to Select component
-const withCategoriesQuery = graphql(FETCH_CATEGORIES);
-
-// Enhance component.
-const CategoryTabs = withCategoriesQuery(withTabs);
 
 class Header extends Component {
   constructor(props) {
