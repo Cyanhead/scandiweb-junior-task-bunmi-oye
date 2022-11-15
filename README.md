@@ -48,6 +48,4 @@ I enjoyed building this project and I learnt a lot while at it. Such as
 
 JS deep cloning using the [structuredClone](https://developer.mozilla.org/en-US/docs/Web/API/structuredClone) method was my favorite thing to learn because prior to discovering it, I used the spread operator and struggled with bugs for a while in cart logic.
 
-For what it's worth, I want to mention that I only made my repo private after I was done with my initial submission. I later noticed that my repo had been cloned by multiple people. This broke my heart as I really worked hard on my cart logic and especially my "quick shop" implementation (as I thought it was unique). I hope this doesn't affect my chances.
-
 Thank you.
