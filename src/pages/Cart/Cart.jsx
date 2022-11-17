@@ -31,6 +31,7 @@ import Counter from '../../components/Counter';
 import { Button } from '../../components/Button';
 
 import arrow from '../../assets/images/arrow.svg';
+import { formatPrice } from '../../helper/formatPrice';
 
 class CartImage extends PureComponent {
   constructor(props) {
@@ -150,9 +151,7 @@ class Cart extends PureComponent {
               <CartP>tax 21&#37;: </CartP>
               <Number>
                 {globalCurrency && globalCurrency.symbol}
-                {(totalPrice * 0.21)
-                  .toFixed(2)
-                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                {formatPrice(totalPrice * 0.21)}
               </Number>
             </Tax>
             <Quantity>
@@ -163,7 +162,7 @@ class Cart extends PureComponent {
               <CartP fontWeight="500">total: </CartP>
               <Number>
                 {globalCurrency && globalCurrency.symbol}
-                {totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                {formatPrice(totalPrice)}
               </Number>
             </TotalPrice>
             <Button width="280px" height="44px">

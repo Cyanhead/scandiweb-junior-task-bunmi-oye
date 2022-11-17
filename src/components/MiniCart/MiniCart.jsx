@@ -22,6 +22,7 @@ import Counter from '../../components/Counter';
 import { Button, LinkButton } from '../../components/Button';
 
 import CloseModalOnClickOutside from '../CloseModalOnClickOutside';
+import { formatPrice } from '../../helper/formatPrice';
 
 class MiniCart extends PureComponent {
   componentDidUpdate() {
@@ -128,7 +129,7 @@ class MiniCart extends PureComponent {
                 <MiniCartP weight="700">Total</MiniCartP>
                 <MiniCartP weight="700">
                   {globalCurrency && globalCurrency.symbol}
-                  {totalPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  {formatPrice(totalPrice)}
                 </MiniCartP>
               </TotalPrice>
               <ButtonGroup onClick={handleClose}>
