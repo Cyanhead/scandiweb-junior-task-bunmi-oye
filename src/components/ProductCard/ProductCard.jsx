@@ -146,20 +146,22 @@ class ProductCard extends PureComponent {
             <Top>
               <ImageWrap available={inStock}>
                 <Image src={gallery[0] || fallback} alt="" />
-                <HoverCartButton
-                  onClick={() => addProduct(product)}
-                  visible={show}
-                  enlarge={enlarge}
-                  cartBtnover={cartBtnover}
-                  handleOpenAttrSelect={this.handleOpenAttrSelect}
-                  handleCloseAttrSelect={this.handleCloseAttrSelect}
-                  enableCartBtnClick={this.enableCartBtnClick}
-                  disableCartBtnClick={this.disableCartBtnClick}
-                  attributes={selectedAttributes}
-                  product={product}
-                  handleSelectedAttributes={handleSelectedAttributes}
-                  updateAttributes={this.updateAttributes}
-                />
+                {inStock && (
+                  <HoverCartButton
+                    onClick={() => addProduct(product)}
+                    visible={show}
+                    enlarge={enlarge}
+                    cartBtnover={cartBtnover}
+                    handleOpenAttrSelect={this.handleOpenAttrSelect}
+                    handleCloseAttrSelect={this.handleCloseAttrSelect}
+                    enableCartBtnClick={this.enableCartBtnClick}
+                    disableCartBtnClick={this.disableCartBtnClick}
+                    attributes={selectedAttributes}
+                    product={product}
+                    handleSelectedAttributes={handleSelectedAttributes}
+                    updateAttributes={this.updateAttributes}
+                  />
+                )}
               </ImageWrap>
               <OutOfStock show={inStock}>out of stock</OutOfStock>
             </Top>
