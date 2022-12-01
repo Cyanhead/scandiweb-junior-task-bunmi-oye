@@ -40,9 +40,7 @@ export const Border = styled.div`
     disableSelect ? 'none' : 'initial'};
 `;
 
-export const Box = styled.div`
-  border: 1px solid ${props => props.theme.color.black};
-
+export const Box = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -55,6 +53,8 @@ export const Box = styled.div`
   max-width: 64px;
   height: ${props => props.boxHeight || '44px'};
   margin-right: ${props => props.gap || ''};
+  border: 1px solid ${props => props.theme.color.black};
+  outline: none;
 
   pointer-events: ${({ disableSelect }) =>
     disableSelect ? 'none' : 'initial'};
@@ -67,7 +67,7 @@ export const Box = styled.div`
   transition: 150ms ease-in-out;
 `;
 
-export const ColorBox = styled.div`
+export const ColorBox = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,6 +77,8 @@ export const ColorBox = styled.div`
   width: ${props => props.colorBoxWidth || '32px'};
   height: ${props => props.colorBoxHeight || '32px'};
   margin-right: ${props => props.gap || ''};
+  border: none;
+  outline: none;
 
   &:last-child {
     margin-right: 0;

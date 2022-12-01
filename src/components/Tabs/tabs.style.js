@@ -29,9 +29,12 @@ export const TabLink = styled(Link)`
   color: inherit;
 `;
 
-export const TabWrap = styled.div`
+export const TabWrap = styled.button`
   padding: 28px 16px 30px 16px;
+  border: none;
   border-bottom: 2px solid transparent;
+  outline: none;
+  background-color: inherit;
 
   cursor: pointer;
 

@@ -98,8 +98,12 @@ export const CartContainer = styled.div`
   cursor: pointer;
 `;
 
-export const CartWrap = styled.div`
+export const CartWrap = styled.button`
   position: relative;
+
+  border: none;
+  outline: none;
+  background-color: inherit;
 `;
 
 export const CartIcon = styled.img``;
