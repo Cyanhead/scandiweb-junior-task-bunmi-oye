@@ -1,5 +1,5 @@
 import { PureComponent } from 'react';
-import { Container, Wrap, TabWrap, TabText } from './tabs.style';
+import { Container, Wrap, TabLink, TabWrap, TabText } from './tabs.style';
 
 import { graphql } from '@apollo/client/react/hoc';
 import { connect } from 'react-redux';
@@ -7,11 +7,6 @@ import { FETCH_CATEGORIES } from '../../graphql/queries';
 import { changeCategory } from '../../redux/category/categoryActions';
 
 class Tabs extends PureComponent {
-  setActiveTab = name => {
-    this.props.changeCategory(name);
-    window.location.href = '/';
-  };
-
   render() {
     const { loading, error, categories } = this.props.data;
 
@@ -34,15 +29,17 @@ class Tabs extends PureComponent {
 
     return (
       <>
-        {categories.map(({ name }) => {
+        {categories.map(({ name }, i) => {
           return (
-            <TabWrap
+            <TabLink
+              to={name === 'all' ? '/' : `/${name}`}
               key={name}
-              onClick={() => this.setActiveTab(name)}
-              active={name === this.props.category}
+              onClick={() => this.props.setTabIndex(i)}
             >
-              <TabText active={name === this.props.category}>{name}</TabText>
-            </TabWrap>
+              <TabWrap active={i === this.props.tabIndex}>
+                <TabText active={i === this.props.tabIndex}>{name}</TabText>
+              </TabWrap>
+            </TabLink>
           );
         })}
       </>

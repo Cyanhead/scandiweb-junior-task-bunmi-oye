@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 const primary = props => props.theme.color.primary;
 
@@ -23,9 +24,17 @@ export const Wrap = styled.div`
   padding: 0 24px;
 `;
 
-export const TabWrap = styled.div`
+export const TabLink = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
+
+export const TabWrap = styled.button`
   padding: 28px 16px 30px 16px;
+  border: none;
   border-bottom: 2px solid transparent;
+  outline: none;
+  background-color: inherit;
 
   cursor: pointer;
 

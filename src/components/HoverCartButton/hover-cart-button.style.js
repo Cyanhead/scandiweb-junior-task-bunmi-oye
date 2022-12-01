@@ -13,10 +13,10 @@ export const Wrap = styled.div`
 
   background-color: ${({ enlarge }) => (enlarge ? 'white' : primary)};
 
-  width: ${({ enlarge }) => (enlarge ? '100%' : '52px')}; // experimental
-  height: ${({ enlarge }) => (enlarge ? '100%' : '52px')}; // experimental
-  margin-bottom: ${({ enlarge }) => (enlarge ? '0' : '-26px')}; // experimental
-  border-radius: ${({ enlarge }) => (enlarge ? '0' : '50%')}; // experimental
+  width: ${({ enlarge }) => (enlarge ? '100%' : '52px')};
+  height: ${({ enlarge }) => (enlarge ? '100%' : '52px')};
+  margin-bottom: ${({ enlarge }) => (enlarge ? '0' : '-26px')};
+  border-radius: ${({ enlarge }) => (enlarge ? '0' : '50%')};
 
   transition: 200ms ease-in-out;
   opacity: ${({ show }) => (show ? 1 : 0)};
