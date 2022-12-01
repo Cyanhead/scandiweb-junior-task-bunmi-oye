@@ -7,11 +7,12 @@ import { FETCH_CATEGORY } from '../../graphql/queries';
 import ProductCard from '../../components/ProductCard';
 import ErrorBoundary from '../../components/ErrorBoundary';
 import { connect } from 'react-redux';
+import withParams from '../../hocs';
 
 class ListingPageComponent extends Component {
   // refetch category list with new query
   componentDidUpdate() {
-    this.props.data.refetch({ categoryName: this.props.category });
+    this.props.data.refetch({ categoryName: this.props.params.category });
   }
 
   // set state to selected category
@@ -43,7 +44,7 @@ class ListingPageComponent extends Component {
     return (
       <Container>
         <Wrap>
-          <Heading>{this.props.category}</Heading>
+          <Heading>{this.props.params.category || 'all'}</Heading>
           <Grid>
             {products.map(product => (
               <ErrorBoundary key={product.id}>
@@ -64,7 +65,9 @@ const mapStateToProps = state => {
 };
 
 // connect to redux
-const withListingPageComponent = connect(mapStateToProps)(ListingPageComponent);
+const withListingPageComponent = connect(mapStateToProps)(
+  withParams(ListingPageComponent)
+);
 
 // Create enhancer function for apollo HOC
 const withCategoryQuery = graphql(FETCH_CATEGORY, {

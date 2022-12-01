@@ -30,10 +30,17 @@ class Header extends Component {
 
     this.state = {
       showCart: false,
+      tabIndex: 0,
     };
 
     this.cartIconRef = React.createRef();
   }
+
+  setTabIndex = index => {
+    this.setState({
+      tabIndex: index,
+    });
+  };
 
   toggleCart = () => {
     this.setState({
@@ -56,10 +63,13 @@ class Header extends Component {
         <Container>
           <Wrap>
             <Left>
-              <CategoryTabs />
+              <CategoryTabs
+                setTabIndex={this.setTabIndex}
+                tabIndex={this.state.tabIndex}
+              />
             </Left>
             <Middle>
-              <Link to="/">
+              <Link to="/" onClick={() => this.setTabIndex(0)}>
                 <Logo src={logo} alt="logo" />
               </Link>
             </Middle>

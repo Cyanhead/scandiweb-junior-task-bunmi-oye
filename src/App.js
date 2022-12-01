@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from 'react-router-dom';
 import { GlobalStyle } from './styles/Global.style';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
@@ -19,6 +24,8 @@ class App extends Component {
             <Header />
             <Routes>
               <Route path="/" element={<ListingPage />} />
+              <Route path="/:category" element={<ListingPage />} />
+              <Route path="/all" element={<Navigate to="/" />} />
               <Route path="/product/:productId" element={<ProductPage />} />
               <Route path="/cart" element={<Cart />} />
             </Routes>
