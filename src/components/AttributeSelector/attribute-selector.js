@@ -38,6 +38,7 @@ export const Border = styled.div`
 
   pointer-events: ${({ disableSelect }) =>
     disableSelect ? 'none' : 'initial'};
+  opacity: ${({ disableSelect }) => (disableSelect ? 0.5 : 1)};
 `;
 
 export const Box = styled.button`
@@ -58,6 +59,7 @@ export const Box = styled.button`
 
   pointer-events: ${({ disableSelect }) =>
     disableSelect ? 'none' : 'initial'};
+  opacity: ${({ disableSelect }) => (disableSelect ? 0.5 : 1)};
 
   &:last-child {
     margin-right: 0;

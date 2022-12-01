@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const Wrapper = styled.div`
   pointer-events: ${({ disable }) => (disable ? 'none' : 'iherit')};
+  opacity: ${({ disable }) => (disable ? 0.5 : 1)};
 `;
 
 export const ButtonComponent = styled.button`
