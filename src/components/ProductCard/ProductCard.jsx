@@ -175,7 +175,7 @@ class ProductCard extends PureComponent {
                 {globalCurrency !== undefined &&
                   prices.find(
                     price => price.currency.label === globalCurrency.label
-                  ).amount}
+                  )?.amount}
               </Price>
             </Bottom>
           </Wrap>
